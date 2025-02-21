@@ -1,57 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Cuts Barbershop - Professional Grooming Services</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-
-</head>
-<body class="bg-gray-100">
+<x-home.header></x-home.header>
+<div class="bg-gray-100">
 <!-- Navigation -->
-<nav class="fixed top-0 w-full bg-gray-800 shadow-lg z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
-            <!-- Logo -->
-            <div class="flex-shrink-0">
-                <a href="index.html" class="text-2xl font-bold text-white">Elegant Cuts</a>
-            </div>
-
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-white hover:text-indigo-300">Home</a>
-                <a href="services.html" class="text-gray-300 hover:text-indigo-300">Services</a>
-                <a href="login.html" class="text-gray-300 hover:text-indigo-300">Login</a>
-                <a href="register.html" class="text-gray-300 hover:text-indigo-300">Register</a>
-            </div>
-
-            <!-- Book Now Button -->
-            <div class="hidden md:flex items-center">
-               <a href="{{ route('bookings') }}" class="text-indigo-500 ation-300">Book Now</a>
-            </div>
-
-            <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button type="button" class="text-gray-300 hover:text-white" id="mobile-menu-button">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile menu -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block text-white bg-gray-700 px-3 py-2 rounded-md">Home</a>
-                <a href="services.html" class="block text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md">Services</a>
-                <a href="booking.html" onclick="checkAuth(event)" class="block bg-indigo-500 text-white px-3 py-2 rounded-md font-semibold hover:bg-indigo-600">Book Now</a>
-                <a href="login.html" class="block text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</a>
-                <a href="register.html" class="block text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md">Register</a>
-            </div>
-        </div>
-    </div>
-</nav>
-
+<x-home.navbar></x-home.navbar>
 
 <!-- Add padding for fixed navbar -->
 <div class="pt-16">
@@ -66,7 +16,7 @@
                 <div class="max-w-4xl">
                     <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Experience Premium Grooming</h1>
                     <p class="text-xl text-gray-200 mb-8">Where style meets tradition in the heart of the city</p>
-                    <a href="booking.html" class="inline-block bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300">Book Your Appointment</a>
+                    <a href="{{ route('bookings') }}" class="inline-block bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300">Book Your Appointment</a>
                 </div>
             </div>
         </div>
@@ -220,35 +170,6 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-12">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">Elegant Cuts</h3>
-                        <p class="text-gray-400">Premium barbershop services for the modern gentleman.</p>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                        <ul class="space-y-2">
-                            <li><a href="services.html" class="text-gray-400 hover:text-white">Services</a></li>
-                            <li><a href="booking.html" class="text-gray-
-                            <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-                        <div class="flex space-x-4">
-                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-8 text-center text-gray-400">
-                    <p>&copy; 2025 Elegant Cuts. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
 
         <!-- Mobile Menu Toggle Script -->
         <script>
@@ -257,7 +178,9 @@
             });
         </script>
 
-</body>
-</html>
+</div>
+</div>
+</div>
+<x-home.footer></x-home.footer>
 
 

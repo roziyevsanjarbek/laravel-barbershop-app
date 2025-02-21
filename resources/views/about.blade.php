@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - BarberStack</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="bg-gray-100">
+<x-home.header></x-home.header>
+<div class="bg-gray-100">
 <!-- Navigation -->
-<nav class="bg-gray-800 text-white p-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-2xl font-bold text-yellow-500">BarberStack</a>
-        <div class="space-x-4">
-            <a href="index.html" class="hover:text-yellow-500">Home</a>
-            <a href="about.html" class="text-yellow-500">About</a>
-            <a href="appointments.html" class="hover:text-yellow-500">Appointments</a>
-            <a href="login.html" class="hover:text-yellow-500">Login</a>
-        </div>
-    </div>
-</nav>
+
+    <x-home.navbar></x-home.navbar>
 
 <!-- Hero Section -->
 <div class="relative h-96 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
@@ -141,31 +124,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-xl font-bold mb-4">BarberStack</h3>
-                <p class="text-gray-400">Your premier destination for professional barbering services.</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Contact</h3>
-                <p class="text-gray-400">123 Barber Street<br>City, State 12345<br>Phone: (555) 123-4567</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="mt-8 text-center text-gray-400">
-            <p>&copy; 2024 BarberStack. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-</body>
-</html>
+
+</div>
+<x-home.footer></x-home.footer>
 
