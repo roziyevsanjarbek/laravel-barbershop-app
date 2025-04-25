@@ -30,6 +30,10 @@ use MoonShine\UI\Components\{Breadcrumbs,
     Layout\TopBar,
     Layout\Wrapper,
     When};
+use App\MoonShine\Resources\RoleUserResource;
+use MoonShine\MenuManager\MenuItem;
+use App\MoonShine\Resources\UserResource;
+use App\MoonShine\Resources\RoleResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -44,6 +48,9 @@ final class MoonShineLayout extends AppLayout
     {
         return [
             ...parent::menu(),
+            MenuItem::make('RoleUsers', RoleUserResource::class),
+            MenuItem::make('Users', UserResource::class),
+            MenuItem::make('Roles', RoleResource::class),
         ];
     }
 
