@@ -11,4 +11,22 @@ class AdminController extends Controller
     {
         return view('Barber.dashboard');
     }
+
+    public function services()
+    {
+        return view('Barber.services');
+    }
+
+    public function addService()
+    {
+        return view('Barber.add-services');
+    }
+    public function clients()
+    {
+        return view('Barber.clients');
+    }
+    public function myProfile()
+    {
+        return view('Barber.my-profile');
+    }
 }

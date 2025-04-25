@@ -15,7 +15,13 @@ Route::middleware(['auth','role:user'])->group(function (){
 });
 
 Route::middleware(['auth','role:admin'])->group(function (){
-    Route::get('/barber/dashboard', [AdminController::class, 'index']);
+    Route::prefix('barber')->group(function (){
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
+        Route::get('/add-service', [AdminController::class, 'addService'])->name('admin.add-service');;
+        Route::get('/clients', [AdminController::class, 'clients'])->name('admin.clients');;
+        Route::get('/my-profile', [AdminController::class, 'myProfile'])->name('admin.my-profile');
+    });
 });
 
 Route::get('/dashboard', function () {
