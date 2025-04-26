@@ -9,7 +9,7 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <!-- Top Navigation -->
-       <x-admin.navbar></x-admin.navbar>
+       <x-admin.navbar :image="$image"></x-admin.navbar>
 
         <!-- Content Area -->
         <main class="flex-1 overflow-y-auto p-4 bg-gray-100">

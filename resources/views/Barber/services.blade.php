@@ -41,7 +41,7 @@
         </script>
 
         <!-- Header Section -->
-        <x-admin.navbar></x-admin.navbar>
+        <x-admin.navbar :image="$image"></x-admin.navbar>
         <header class="container mx-auto py-12 text-center">
 
             <h1 class="text-4xl font-bold mb-4">Our Professional Services</h1>

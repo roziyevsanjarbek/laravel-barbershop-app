@@ -8,48 +8,7 @@
     <!-- Main Content - Using Bootstrap -->
     <div class="flex-1 bg-light">
         <!-- Top Navigation Bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom p-3">
-            <div class="container-fluid">
-                <button class="btn btn-sm btn-outline-secondary me-2" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <form class="d-flex me-auto">
-                    <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-                <div class="d-flex align-items-center">
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bell"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    3
-                                </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">New appointment</a></li>
-                            <li><a class="dropdown-item" href="#">Service request</a></li>
-                            <li><a class="dropdown-item" href="#">Inventory alert</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown ms-3">
-                        <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/avatar.jpg" alt="User" class="rounded-circle me-2" width="32" height="32">
-                            <span>John Doe</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+       <x-admin.navbar :image="$image"></x-admin.navbar>
 
         <!-- Page Content -->
         <div class="container-fluid py-4">

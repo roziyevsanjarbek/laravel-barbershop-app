@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
@@ -21,6 +22,10 @@ Route::middleware(['auth','role:admin'])->group(function (){
         Route::get('/add-service', [AdminController::class, 'addService'])->name('admin.add-service');;
         Route::get('/clients', [AdminController::class, 'clients'])->name('admin.clients');;
         Route::get('/my-profile', [AdminController::class, 'myProfile'])->name('admin.my-profile');
+
+        Route::post('/my-profile/update', [AdminProfileController::class, 'updateProfile'])->name('admin.update-profile');
+        Route::post('/my-profile/{user_id}/upload-image', [AdminProfileController::class, 'uploadImage'])->name('admin.upload-image');
+        Route::delete('/my-profile/{user_id}/remove-image', [AdminProfileController::class, 'removeImage'])->name('admin.remove-image');
     });
 });
 

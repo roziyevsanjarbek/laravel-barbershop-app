@@ -51,5 +51,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
 
 }

@@ -3,30 +3,56 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('Barber.dashboard');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('Barber.dashboard', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 
     public function services()
     {
-        return view('Barber.services');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('Barber.services', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 
     public function addService()
     {
-        return view('Barber.add-services');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('Barber.add-services', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
     public function clients()
     {
-        return view('Barber.clients');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('Barber.clients', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
     public function myProfile()
     {
-        return view('Barber.my-profile');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('Barber.my-profile', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 }

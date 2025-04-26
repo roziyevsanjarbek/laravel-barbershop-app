@@ -13,7 +13,7 @@
             </button>
             <div class="relative">
                 <button class="flex items-center text-gray-700 focus:outline-none">
-                    <img src="img/avatar.jpg" alt="Avatar" class="h-8 w-8 rounded-full object-cover">
+                    <img src="{{ asset('storage/' . $image->path) }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover">
                     <span class="ml-2">{{ Auth::user()->name }}</span>
                     <i class="fas fa-chevron-down ml-2 text-xs"></i>
                 </button>

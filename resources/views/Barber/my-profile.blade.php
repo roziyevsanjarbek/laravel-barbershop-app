@@ -12,7 +12,7 @@
     <div class="ml-64 p-8 w-full">
         <div class="flex justify-between items-center mb-6">
             <div class="flex-1">
-                <x-admin.navbar></x-admin.navbar>
+                <x-admin.navbar :image="$image"></x-admin.navbar>
             </div>
         </div>
 
@@ -20,54 +20,62 @@
         <div class="row">
             <!-- Profile Picture Section -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h4 class="card-title mb-4">Profile Picture</h4>
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                        <div class="position-relative d-inline-block">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-upload me-2"></i>Upload New Picture
-                            </button>
-                            <input type="file" name="profile_picture" accept="image/*" class="position-absolute top-0 start-0 opacity-0 w-100 h-100" style="cursor: pointer;">
-                        </div>
-                        <div class="mt-3">
-                            <button class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash me-1"></i>Remove Picture
-                            </button>
+                <form id="upload-form" action="{{ route('admin.upload-image', [Auth::id()]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h4 class="card-title mb-4">Profile Picture</h4>
+                            <img src="{{ asset('storage/' . $image->path) }}" alt="Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <div class="position-relative d-inline-block">
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('profile_picture').click();">
+                                    <i class="fas fa-upload me-2"></i>Upload New Picture
+                                </button>
+                                <input id="profile_picture" type="file" name="profile_picture" accept="image/*" class="position-absolute top-0 start-0 opacity-0 w-100 h-100" style="cursor: pointer; display: none;">
+                            </div>
+                            <div class="mt-3">
+                                <form action="{{ route('admin.remove-image', [Auth::id()]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash me-1"></i>Remove Picture
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
+
+            <script>
+                document.getElementById('profile_picture').addEventListener('change', function() {
+                    document.getElementById('upload-form').submit();
+                });
+            </script>
+
+
+
 
             <!-- Personal Information Section -->
             <div class="col-md-8 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Personal Information</h4>
-                        <form>
+                        <form action="{{ route('admin.update-profile', [Auth::id()]) }}" method="POST">
+                            @csrf
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" value="John">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" value="Doe">
+                                    <label for="firstName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="name" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}">
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="+1 (555) 123-4567">
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{ Auth::user()->phone }}">
                             </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <textarea class="form-control" id="address" rows="3">123 Main Street, Anytown, CA 12345</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="saveChanges" >
                                 <i class="fas fa-save me-2"></i>Save Changes
                             </button>
                         </form>
@@ -120,6 +128,13 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@1.4.0/dist/flowbite.min.js"></script>
 <script>
     document.getElementById('mobile-menu-button').addEventListener('click', function() {
         const sidebar = document.querySelector('aside');
