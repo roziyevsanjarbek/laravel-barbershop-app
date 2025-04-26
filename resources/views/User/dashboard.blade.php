@@ -10,33 +10,7 @@
 <body class="bg-gray-100 fade-in">
 <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside class="fixed inset-y-0 left-0 bg-gray-800 w-64 transform transition-transform duration-300 ease-in-out md:translate-x-0" id="sidebar">
-        <div class="flex items-center justify-between p-4 border-b border-gray-700">
-            <span class="text-xl text-white font-bold">BarberShop</span>
-            <button class="md:hidden text-white" onclick="toggleSidebar()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <nav class="mt-6">
-            <a href="dashboard-overview.html" class="flex items-center px-6 py-3 text-white bg-gray-700">
-                <i class="fas fa-home w-5 mr-3"></i>
-                Overview
-            </a>
-            <a href="dashboard-appointments.html" class="flex items-center px-6 py-3 text-white hover:bg-gray-700">
-                <i class="fas fa-calendar-alt w-5 mr-3"></i>
-                Appointments
-            </a>
-            <a href="dashboard-rewards.html" class="flex items-center px-6 py-3 text-white hover:bg-gray-700">
-                <i class="fas fa-star w-5 mr-3"></i>
-                Rewards
-            </a>
-            <a href="dashboard-styles.html" class="flex items-center px-6 py-3 text-white hover:bg-gray-700">
-                <i class="fas fa-cut w-5 mr-3"></i>
-                My Styles
-            </a>
-        </nav>
-    </aside>
-
+    <x-user.sidebar></x-user.sidebar>
     <!-- Mobile menu button -->
     <button class="fixed top-4 left-4 md:hidden z-50 bg-gray-800 text-white p-2 rounded-lg" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>

@@ -12,7 +12,14 @@ Route::get('/', [HomeController::class, 'index']);
 
 
 Route::middleware(['auth','role:user'])->group(function (){
-    Route::get('/user/dashboard', [UserController::class, 'index']);
+    Route::prefix('user')->group(function (){
+        Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+        Route::get('/services', [UserController::class, 'services'])->name('user.services');
+        Route::get('/appointments', [UserController::class, 'appointments'])->name('user.appointments');
+        Route::get('/rewards', [UserController::class, 'rewards'])->name('user.rewards');
+        Route::get('/bookings', [UserController::class, 'bookings'])->name('user.bookings');
+        Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+    });
 });
 
 Route::middleware(['auth','role:admin'])->group(function (){
