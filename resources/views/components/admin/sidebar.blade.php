@@ -24,5 +24,8 @@
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.my-profile') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-user mr-2"></i>Profile
         </a>
+        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-700 rounded mb-1">
+            <i class="fas fa-sign-out-alt mr-3"></i> Logout
+        </a>
     </nav>
 </div>

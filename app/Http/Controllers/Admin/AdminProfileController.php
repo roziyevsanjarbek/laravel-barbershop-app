@@ -20,7 +20,7 @@ class AdminProfileController extends Controller
         ]);
 
         $user = auth()->user();
-        $image = Image::were('user_id', $user->id)->first();
+        $image = Image::where('user_id', $user->id)->first();
 
         $user->name = $validator['name'];
         $user->email = $validator['email'];

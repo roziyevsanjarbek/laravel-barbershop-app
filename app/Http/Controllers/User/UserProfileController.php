@@ -20,7 +20,7 @@ class UserProfileController extends Controller
         ]);
 
 
-        $image = Image::were('user_id', auth()->user()->id)->first();
+
         $user = auth()->user();
         $user->name = $validator['fullName'];
         $user->email = $validator['email'];
@@ -29,7 +29,7 @@ class UserProfileController extends Controller
 
         return view('User.profile', [
             'user' => $user,
-            'image' => $image,
+
 
         ]);
     }
