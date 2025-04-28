@@ -48,10 +48,8 @@ class UserProfileController extends Controller
 
         $imageFile = $request->file('profile_picture');
 
-        // Rasmni saqlash
         $path = $imageFile->store('profile_pictures', 'public');
 
-        // Images jadvaliga yozish
         Image::create([
             'user_id' => $userId,
             'path' => $path,
