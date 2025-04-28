@@ -20,29 +20,34 @@
         <div class="row">
             <!-- Profile Picture Section -->
             <div class="col-md-4 mb-4">
-                <form id="upload-form" action="{{ route('admin.upload-image', [Auth::id()]) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
                     <div class="card shadow-sm">
                         <div class="card-body text-center">
                             <h4 class="card-title mb-4">Profile Picture</h4>
-                            <img src="{{ asset('storage/' . $image->path) }}" alt="Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            @if($image)
+                                <img src="{{ asset('storage/' . $image->path) }}" alt="Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            @else
+                                <img src="https://via.placeholder.com/40" alt="Default Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            @endif
                             <div class="position-relative d-inline-block">
+                                <form id="upload-form" action="{{ route('admin.upload-image', [Auth::id()]) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                 <button type="button" class="btn btn-primary" onclick="document.getElementById('profile_picture').click();">
                                     <i class="fas fa-upload me-2"></i>Upload New Picture
                                 </button>
                                 <input id="profile_picture" type="file" name="profile_picture" accept="image/*" class="position-absolute top-0 start-0 opacity-0 w-100 h-100" style="cursor: pointer; display: none;">
+                                </form>
                             </div>
                             <div class="mt-3">
-                                <form action="{{ route('admin.remove-image', [Auth::id()]) }}" method="POST">
+                                <form action="{{ route('admin.remove-image', Auth::id()) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    @method('DELETE')
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">
                                         <i class="fas fa-trash me-1"></i>Remove Picture
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
 
             <script>

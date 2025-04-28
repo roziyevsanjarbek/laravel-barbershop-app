@@ -13,7 +13,11 @@
             </button>
             <div class="relative">
                 <button class="flex items-center text-gray-700 focus:outline-none">
+                    @if($image)
                     <img src="{{ asset('storage/' . $image->path) }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover">
+                    @else
+                    <img src="{{ asset('images/default-avatar.png') }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover">
+                    @endif
                     <span class="ml-2">{{ Auth::user()->name }}</span>
                     <i class="fas fa-chevron-down ml-2 text-xs"></i>
                 </button>

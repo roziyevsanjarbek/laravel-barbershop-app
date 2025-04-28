@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile | Barbershop Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="bg-gray-100">
+<x-user.header></x-user.header>
+<div class="bg-gray-100">
 <div class="flex">
     <!-- Sidebar -->
     <div class="w-64 h-screen bg-gray-800 text-white fixed left-0 overflow-y-auto">
@@ -23,60 +14,93 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800">My Profile</h2>
             <div class="flex items-center">
-                <span class="mr-2">Welcome, John Doe</span>
-                <img src="https://via.placeholder.com/40" class="rounded-full h-10 w-10" alt="User Profile">
+                <span class="mr-2">{{ Auth::user()->name }}</span>
+                @if($image)
+                <img src="{{ asset('storage/' . $image->path) }}" class="rounded-full h-10 w-10" alt="User Profile">
+                @else
+                <img src="https://via.placeholder.com/40" class="rounded-full h-10 w-10" alt="Default Profile Picture">
+                @endif
             </div>
         </div>
 
         <div class="row">
-            <!-- Profile Picture Section -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body text-center">
                         <h4 class="card-title mb-4">Profile Picture</h4>
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle mx-auto d-block mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        @if($image)
+                        <img src="{{ asset('storage/' . $image->path) }}" alt="Profile Picture"
+                             class="rounded-circle mx-auto d-block mb-4"
+                             style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        @else
+                        <img src="https://via.placeholder.com/150" alt="Default Profile Picture"
+                             class="rounded-circle mx-auto d-block mb-4"
+                             style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        @endif
+
                         <div class="position-relative d-inline-block">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-upload me-2"></i>Upload New Picture
-                            </button>
-                            <input type="file" name="profile_picture" accept="image/*" class="position-absolute top-0 start-0 opacity-0 w-100 h-100" style="cursor: pointer;">
+                            <form id="upload-form" action="{{ route('user.upload-image', Auth::id()) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" id="profile_picture" name="profile_picture" accept="image/*"
+                                       class="position-absolute top-0 start-0 opacity-0 w-100 h-100"
+                                       style="cursor: pointer; z-index: 2;">
+
+                                <button class="btn btn-primary" type="button" id="upload-button" style="position: relative; z-index: 1;">
+                                    <i class="fas fa-upload me-2"></i> Upload New Picture
+                                </button>
+                            </form>
                         </div>
+
                         <div class="mt-3">
-                            <button class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash me-1"></i>Remove Picture
-                            </button>
+                            <form action="{{ route('user.remove-image', Auth::id()) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-danger btn-sm" type="submit">
+                                    <i class="fas fa-trash me-1"></i>Remove Picture
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                const uploadButton = document.getElementById('upload-button');
+                const profileInput = document.getElementById('profile_picture');
+                const uploadForm = document.getElementById('upload-form');
+
+                uploadButton.addEventListener('click', () => {
+                    profileInput.click(); // Fayl tanlash oynasi ochiladi
+                });
+
+                profileInput.addEventListener('change', () => {
+                    if (profileInput.files.length > 0) {
+                        uploadForm.submit(); // Fayl tanlagandan keyin avtomatik form submit
+                    }
+                });
+            </script>
+
 
             <!-- Personal Information Section -->
             <div class="col-md-8 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Personal Information</h4>
-                        <form>
+                        <form action="{{ route('user.update-profile') }}" method="POST">
+                            @csrf
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" value="John">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" value="Doe">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" name="fullName" id="fullName" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                                <input type="email" class="form-control" name="email" id="email" value="{{  Auth::user()->email }}">
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="+1 (555) 123-4567">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <textarea class="form-control" id="address" rows="3">123 Main Street, Anytown, CA 12345</textarea>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{  Auth::user()->phone }}">
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-2"></i>Save Changes
@@ -231,6 +255,6 @@
     });
     // Add any additional JavaScript functionality here
 </script>
-</body>
-</html>
+</div>
+<x-user.footer></x-user.footer>
 

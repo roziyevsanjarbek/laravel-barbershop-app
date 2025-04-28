@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -19,6 +20,10 @@ Route::middleware(['auth','role:user'])->group(function (){
         Route::get('/rewards', [UserController::class, 'rewards'])->name('user.rewards');
         Route::get('/bookings', [UserController::class, 'bookings'])->name('user.bookings');
         Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+
+        Route::post('/profile/update', [UserProfileController::class, 'updateProfile'])->name('user.update-profile');
+        Route::post('/profile/{user_id}/upload-image', [UserProfileController::class, 'uploadImage'])->name('user.upload-image');
+        Route::delete('/profile/{user_id}/remove-image', [UserProfileController::class, 'removeImage'])->name('user.remove-image');
     });
 });
 

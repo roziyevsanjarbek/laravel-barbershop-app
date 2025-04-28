@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 
 class UserController extends Controller
 {
@@ -29,7 +30,12 @@ class UserController extends Controller
     }
     public function profile()
     {
-        return view('User.profile');
+        $user = auth()->user();
+        $image = Image::where('user_id', $user->id)->first();
+        return view('User.profile', [
+            'user' => $user,
+            'image' => $image,
+        ]);
     }
 
 }

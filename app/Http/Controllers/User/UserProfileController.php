@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
@@ -8,30 +8,32 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AdminProfileController extends Controller
+
+class UserProfileController extends Controller
 {
     public function updateProfile(Request $request)
     {
-
         $validator = $request->validate([
-            'name' => 'required|string|max:255',
+            'fullName' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'phone' => 'required|string|',
         ]);
 
-        $user = auth()->user();
-        $image = Image::were('user_id', $user->id)->first();
 
-        $user->name = $validator['name'];
+        $image = Image::were('user_id', auth()->user()->id)->first();
+        $user = auth()->user();
+        $user->name = $validator['fullName'];
         $user->email = $validator['email'];
         $user->phone = $validator['phone'];
         $user->save();
 
-        return view('Barber.my-profile', [
+        return view('User.profile', [
             'user' => $user,
             'image' => $image,
+
         ]);
     }
+
 
     public function uploadImage(Request $request, $userId)
     {
@@ -39,6 +41,7 @@ class AdminProfileController extends Controller
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
 
         $user = auth()->user();
 
@@ -54,7 +57,8 @@ class AdminProfileController extends Controller
             'path' => $path,
             'name' => $imageFile->getClientOriginalName(),
         ]);
-        return redirect()->route('admin.my-profile')->with('success', 'Profile picture uploaded successfully.');
+
+        return redirect()->route('user.profile')->with('success', 'Profile picture uploaded successfully.');
     }
 
     public function removeImage(int $userId)
@@ -63,12 +67,11 @@ class AdminProfileController extends Controller
         if ($image) {
             Storage::disk('public')->delete($image->path);
             $image->delete();
-            return redirect()->route('admin.my-profile')->with('success', 'Profile picture removed successfully.');
+
+            return redirect()->route('user.profile')->with('success', 'Profile picture removed successfully.');
         }
-        return redirect()->route('admin.my-profile')->with('error', 'Profile picture not found.');
+        return redirect()->route('user.profile')->with('error', 'Profile picture not found.');
 
 
     }
-
-
 }
