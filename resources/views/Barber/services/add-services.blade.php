@@ -26,7 +26,7 @@
             </div>
 
             <!-- Add Service Form -->
-            <form id="addServiceForm" action="{{ route('admin.add-services') }}" method="POST" enctype="multipart/form-data">
+            <form id="addServiceForm" action="{{ route('admin.update-services') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8">
@@ -93,7 +93,7 @@
                                     <label for="serviceImage" class="btn btn-outline-primary">
                                         <i class="fas fa-upload me-2"></i> Upload Image
                                     </label>
-                                    <input type="file" class="d-none" id="serviceImage" name="serviceImage" accept="image/*">
+                                    <input type="file" class="d-none" id="serviceImage" name="serviceImage" accept="image/*" required>
                                 </div>
                                 <small class="text-muted">Recommended size: 800x600 pixels</small>
                             </div>

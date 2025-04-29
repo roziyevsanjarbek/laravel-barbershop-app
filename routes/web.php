@@ -44,6 +44,9 @@ Route::middleware(['auth','role:admin'])->group(function (){
 
 
         Route::post('/services/add', [AddServiceController::class, 'addService'])->name('admin.add-services');
+        Route::get('/services/update/{serviceId}', [AddServiceController::class, 'updateService'])->name('admin.update-services');
+        Route::post('/services/update/{serviceId}', [AddServiceController::class, 'editService'])->name('admin.update-service');
+        Route::post('/services/delete/{serviceId}', [AddServiceController::class, 'deleteService'])->name('admin.delete-services');
     });
 });
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -42,7 +42,7 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::findOrFail($userId);
-        
+
         $imageFile = $request->file('profile_picture');
 
         $path = $imageFile->store('profile_pictures', 'public');

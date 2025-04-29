@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Image;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AddServiceController extends Controller
@@ -17,7 +19,7 @@ class AddServiceController extends Controller
             'serviceDuration' => 'required|integer|min:1',
             'serviceDescription' => 'required|string|max:1000',
             'serviceCategory' => 'required|exists:categories,id',
-            'serviceImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'serviceImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
         $imagePath = null;
@@ -43,6 +45,32 @@ class AddServiceController extends Controller
         }
 
         return redirect()->route('admin.manage-services');
+    }
+
+    public function deleteService(int $serviceId)
+    {
+        $service = Service::findOrFail($serviceId);
+        $service->delete();
+
+        return redirect()->route('admin.manage-services');
+    }
+
+    public function updateService(int $serviceId)
+    {
+        $service = Service::findOrFail($serviceId);
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
+        $categories = Category::all();
+        return view('Barber.services.edit-service', [
+            'user' => $user,
+            'image' => $image,
+            'categories' => $categories,
+            'service' => $service,
+        ]);
+    }
+
+    public function editService(Request $request){
+        dd($request->all());
     }
 
 
