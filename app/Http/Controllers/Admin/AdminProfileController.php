@@ -19,8 +19,8 @@ class AdminProfileController extends Controller
             'phone' => 'required|string|',
         ]);
 
-        $user = auth()->user();
-        $image = Image::where('user_id', $user->id)->first();
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
 
         $user->name = $validator['name'];
         $user->email = $validator['email'];
@@ -35,29 +35,33 @@ class AdminProfileController extends Controller
 
     public function uploadImage(Request $request, $userId)
     {
-
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
-        $user = auth()->user();
-
+        $user = User::findOrFail($userId);
 
         $imageFile = $request->file('profile_picture');
-
         $path = $imageFile->store('profile_pictures', 'public');
 
-        Image::create([
-            'user_id' => $userId,
+        if ($user->image) {
+            Storage::disk('public')->delete($user->image->path);
+            $user->image()->delete();
+        }
+
+        $user->image()->create([
             'path' => $path,
             'name' => $imageFile->getClientOriginalName(),
         ]);
+
         return redirect()->route('admin.my-profile')->with('success', 'Profile picture uploaded successfully.');
     }
 
+
     public function removeImage(int $userId)
     {
-        $image = Image::where('user_id', $userId)->first();
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
         if ($image) {
             Storage::disk('public')->delete($image->path);
             $image->delete();

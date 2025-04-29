@@ -17,8 +17,8 @@
                     <h1 class="h3 mb-0">Add New Service</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="manage-services.html">Services</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.manage-services') }}">Services</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Add New Service</li>
                         </ol>
                     </nav>
@@ -26,128 +26,100 @@
             </div>
 
             <!-- Add Service Form -->
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card mb-4">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Service Information</h5>
-                        </div>
-                        <div class="card-body">
-                            <form>
+            <form id="addServiceForm" action="{{ route('admin.add-services') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Service Information Card -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">Service Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Service Name -->
                                 <div class="mb-3">
                                     <label for="serviceName" class="form-label">Service Name</label>
-                                    <input type="text" class="form-control" id="serviceName" placeholder="e.g. Classic Haircut">
+                                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="e.g. Classic Haircut">
                                 </div>
 
                                 <div class="row">
+                                    <!-- Price -->
                                     <div class="col-md-6 mb-3">
                                         <label for="servicePrice" class="form-label">Price ($)</label>
-                                        <input type="number" class="form-control" id="servicePrice" placeholder="0.00" step="0.01" min="0">
+                                        <input type="number" class="form-control" id="servicePrice" name="servicePrice" placeholder="0.00" step="0.01" min="0">
                                     </div>
+
+                                    <!-- Duration -->
                                     <div class="col-md-6 mb-3">
                                         <label for="serviceDuration" class="form-label">Duration (minutes)</label>
-                                        <input type="number" class="form-control" id="serviceDuration" placeholder="30" min="5" step="5">
+                                        <input type="number" class="form-control" id="serviceDuration" name="serviceDuration" placeholder="30" min="5" step="5">
                                     </div>
                                 </div>
 
+                                <!-- Category -->
                                 <div class="mb-3">
                                     <label for="serviceCategory" class="form-label">Category</label>
-                                    <select class="form-select" id="serviceCategory">
-                                        <option selected disabled>Select a category</option>
-                                        <option value="haircut">Haircut</option>
-                                        <option value="shave">Shave</option>
-                                        <option value="beard">Beard Trim</option>
-                                        <option value="color">Hair Color</option>
-                                        <option value="treatment">Hair Treatment</option>
-                                        <option value="package">Package</option>
+                                    <select class="form-select" name="serviceCategory" required>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
+                                <!-- Description -->
                                 <div class="mb-3">
                                     <label for="serviceDescription" class="form-label">Description</label>
-                                    <textarea class="form-control" id="serviceDescription" rows="4" placeholder="Describe the service..."></textarea>
+                                    <textarea class="form-control" id="serviceDescription" name="serviceDescription" rows="4" placeholder="Describe the service..."></textarea>
                                 </div>
 
+                                <!-- Active switch -->
                                 <div class="form-check form-switch mb-3">
-                                    <input class="form-check-input" type="checkbox" id="serviceActive" checked>
+                                    <input class="form-check-input" type="checkbox" id="serviceActive" name="isBooking" checked>
                                     <label class="form-check-label" for="serviceActive">Service is active and available for booking</label>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Service Image</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center mb-3">
-                                <img src="img/placeholder-service.jpg" alt="Service Preview" class="img-fluid rounded mb-3" id="serviceImagePreview" style="max-height: 200px; width: auto;">
+                    <!-- Service Image Upload -->
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">Service Image</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="{{ asset('img/placeholder-service.jpg') }}" alt="Service Preview" class="img-fluid rounded mb-3" id="serviceImagePreview" style="max-height: 200px; width: auto;">
                                 <div class="d-grid">
                                     <label for="serviceImage" class="btn btn-outline-primary">
                                         <i class="fas fa-upload me-2"></i> Upload Image
                                     </label>
-                                    <input type="file" class="d-none" id="serviceImage" accept="image/*">
+                                    <input type="file" class="d-none" id="serviceImage" name="serviceImage" accept="image/*">
                                 </div>
                                 <small class="text-muted">Recommended size: 800x600 pixels</small>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card mb-4">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Additional Options</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="staffAssignment" class="form-label">Assign Staff</label>
-                                <select class="form-select" id="staffAssignment" multiple>
-                                    <option value="1">John Smith</option>
-                                    <option value="2">Michael Johnson</option>
-                                    <option value="3">Robert Williams</option>
-                                    <option value="4">David Brown</option>
-                                </select>
-                                <small class="text-muted">Hold Ctrl/Cmd to select multiple staff</small>
-                            </div>
-
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="featuredService">
-                                <label class="form-check-label" for="featuredService">Feature on homepage</label>
-                            </div>
-
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="onlineBooking" checked>
-                                <label class="form-check-label" for="onlineBooking">Available for online booking</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
 
-            <!-- Action Buttons -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-end">
-                                <a href="manage-services.html" class="btn btn-light me-2">
+                <!-- Action Buttons -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-end">
+                                <a href="{{ route('admin.manage-services') }}" class="btn btn-light me-2">
                                     <i class="fas fa-times me-1"></i> Cancel
                                 </a>
-                                <button type="button" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save me-1"></i> Save Service
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            </form>
 
-<!-- Bootstrap JS and dependencies -->
+
+            <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 

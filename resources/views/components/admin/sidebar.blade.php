@@ -16,6 +16,10 @@
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.services') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-cut mr-3"></i>Service
         </a>
+        <a href="{{ route('admin.manage-services') }}"
+           class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.manage-service') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
+            <i class="fas fa-concierge-bell mr-3"></i>Manage Service
+        </a>
         <a href="{{ route('admin.add-service') }}"
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.add-service') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-plus-circle mr-3"></i>Add New Service
@@ -24,8 +28,12 @@
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.my-profile') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-user mr-2"></i>Profile
         </a>
-        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-700 rounded mb-1">
-            <i class="fas fa-sign-out-alt mr-3"></i> Logout
-        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="text-white px-6 py-3 rounded-lg hover:bg-gray-700 w-full text-left">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Logout
+            </button>
+        </form>
     </nav>
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -30,8 +31,8 @@ class UserController extends Controller
     }
     public function profile()
     {
-        $user = auth()->user();
-        $image = Image::where('user_id', $user->id)->first();
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
         return view('User.profile', [
             'user' => $user,
             'image' => $image,

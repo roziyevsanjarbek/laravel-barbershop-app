@@ -22,12 +22,6 @@
             <a href="{{ route('user.dashboard') }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 w-40">
                 User Panel
             </a>
-
-            <!-- Logout Button -->
-            <a href="/" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 w-40">
-                Logout
-            </a>
-        </div>
     </div>
 </div>
 

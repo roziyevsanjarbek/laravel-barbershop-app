@@ -37,31 +37,31 @@ class UserProfileController extends Controller
 
     public function uploadImage(Request $request, $userId)
     {
-
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
-
-        $user = auth()->user();
-
-
+        $user = User::findOrFail($userId);
+        
         $imageFile = $request->file('profile_picture');
 
         $path = $imageFile->store('profile_pictures', 'public');
 
-        Image::create([
-            'user_id' => $userId,
+        $image = new Image([
             'path' => $path,
             'name' => $imageFile->getClientOriginalName(),
         ]);
 
+        $user->image()->save($image);
+
         return redirect()->route('user.profile')->with('success', 'Profile picture uploaded successfully.');
     }
 
+
     public function removeImage(int $userId)
     {
-        $image = Image::where('user_id', $userId)->first();
+        $user = User::findOrFail($userId);
+        $image = $user->image;
         if ($image) {
             Storage::disk('public')->delete($image->path);
             $image->delete();

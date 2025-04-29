@@ -46,31 +46,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Profile Information -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-user text-yellow-500 text-xl mr-2"></i>
-                        <h2 class="text-xl font-semibold text-gray-800">Profile Information</h2>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-gray-600">Name</label>
-                            <p class="font-semibold">John Doe</p>
-                        </div>
-                        <div>
-                            <label class="text-gray-600">Email</label>
-                            <p class="font-semibold">john.doe@example.com</p>
-                        </div>
-                        <div>
-                            <label class="text-gray-600">Phone</label>
-                            <p class="font-semibold">+1 (555) 123-4567</p>
-                        </div>
-                        <button class="text-yellow-500 hover:text-yellow-600">
-                            <i class="fas fa-pencil-alt mr-1"></i> Edit Profile
-                        </button>
-                    </div>
-                </div>
             </div>
         </section>
     </main>

@@ -9,7 +9,11 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <!-- Top Navigation -->
+        @if($image)
        <x-admin.navbar :image="$image"></x-admin.navbar>
+        @else
+        <x-admin.navbar :image="null"></x-admin.navbar>
+        @endif
 
         <!-- Content Area -->
         <main class="flex-1 overflow-y-auto p-4 bg-gray-100">

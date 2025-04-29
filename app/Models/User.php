@@ -12,6 +12,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -51,13 +53,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
-    public function images()
+    public function image()
     {
-        return $this->hasMany(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
+
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->exists();
+    }
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
     }
 
 
