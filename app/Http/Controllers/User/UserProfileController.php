@@ -21,7 +21,9 @@ class UserProfileController extends Controller
 
 
 
-        $user = auth()->user();
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
+
         $user->name = $validator['fullName'];
         $user->email = $validator['email'];
         $user->phone = $validator['phone'];
@@ -29,6 +31,7 @@ class UserProfileController extends Controller
 
         return view('User.profile', [
             'user' => $user,
+            'image' => $image,
 
 
         ]);

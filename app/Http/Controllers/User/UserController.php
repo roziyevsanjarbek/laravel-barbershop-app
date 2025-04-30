@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Image;
+use App\Models\Service;
 use App\Models\User;
 
 class UserController extends Controller
@@ -27,7 +29,12 @@ class UserController extends Controller
 
     public function services()
     {
-        return view('User.service');
+        $services = Service::with('images')->get();
+        $categories = Category::query()->whereHas('services')->get();
+        return view('User.service', [
+            'services' => $services,
+            'categories' => $categories,
+        ]);
     }
     public function profile()
     {
