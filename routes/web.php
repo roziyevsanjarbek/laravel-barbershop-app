@@ -50,6 +50,11 @@ Route::middleware(['auth','role:admin'])->group(function (){
         Route::post('/services/delete/{serviceId}', [ServiceController::class, 'delete'])->name('admin.delete-services');
     });
 });
+
+
+
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
