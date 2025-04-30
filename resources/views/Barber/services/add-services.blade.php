@@ -26,7 +26,7 @@
             </div>
 
             <!-- Add Service Form -->
-            <form id="addServiceForm" action="{{ route('admin.update-services') }}" method="POST" enctype="multipart/form-data">
+            <form id="addServiceForm" action="{{ route('admin.add-services') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8">

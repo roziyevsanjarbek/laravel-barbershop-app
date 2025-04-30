@@ -59,7 +59,7 @@
                     @foreach($services as $service)
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                             @foreach($service->images as $image)
-                            <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $service->name }}" class="w-full h-48 object-cover">
+                            <img src="{{ asset($service->image->path) }}" alt="{{ $service->name }}" class="w-full h-48 object-cover">
                             @endforeach
                             <div class="p-6">
                                 <h3 class="text-xl font-bold mb-2">{{ $service->name  }}</h3>

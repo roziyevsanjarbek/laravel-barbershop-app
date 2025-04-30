@@ -26,7 +26,7 @@
             </div>
 
             <!-- Add Service Form -->
-            <form id="addServiceForm" action="{{ route('admin.add-services') }}" method="POST" enctype="multipart/form-data">
+            <form id="addServiceForm" action="{{ route('admin.update-service', [$service->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8">
@@ -70,7 +70,7 @@
                                 <!-- Description -->
                                 <div class="mb-3">
                                     <label for="serviceDescription" class="form-label">Description</label>
-                                    <textarea class="form-control" id="serviceDescription" name="serviceDescription" rows="4" placeholder="{{ $service->description }}"></textarea>
+                                    <textarea class="form-control" id="serviceDescription" name="serviceDescription" rows="4" placeholder="{{ $service->description }}">{{ old('serviceDescription', $service->description) }}</textarea>
                                 </div>
 
                                 <!-- Active switch -->
@@ -138,4 +138,16 @@
                     }
                 });
             </script>
-            <x-admin.footer></x-admin.footer>
+        </div>
+        <!-- Footer -->
+        <div class="flex-shrink-0 bg-white border-t border-gray-200 p-4">
+            <div class="flex items-center justify-center space-x-4">
+                <span class="text-sm text-gray-500">© 2023 Barbershop. All rights reserved.</span>
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Privacy Policy</a>
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Terms of Service</a>
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</div>
+<x-admin.footer></x-admin.footer>

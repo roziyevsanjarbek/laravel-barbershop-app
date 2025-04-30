@@ -10,7 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminProfileController extends Controller
 {
-    public function updateProfile(Request $request)
+
+    public function index()
+    {
+        $user = User::findOrFail(auth()->user()->id);
+        $image = $user->image;
+        return view('Barber.my-profile', [
+            'user' => $user,
+            'image' => $image,
+        ]);
+    }
+
+    public function update(Request $request)
     {
 
         $validator = $request->validate([
@@ -58,7 +69,7 @@ class AdminProfileController extends Controller
     }
 
 
-    public function removeImage(int $userId)
+    public function delete(int $userId)
     {
         $user = User::findOrFail(auth()->user()->id);
         $image = $user->image;

@@ -49,7 +49,7 @@
                                         <td class="px-3 md:px-4 py-3 whitespace-nowrap">
                                             @foreach($service->images as $image)
                                             @if($image)
-                                                <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->path }}" class="w-12 h-12 rounded-lg object-cover transform transition-transform duration-200 hover:scale-110">
+                                                <img src="{{ asset($service->image->path) }}" alt="{{ $image->path }}" class="w-12 h-12 rounded-lg object-cover transform transition-transform duration-200 hover:scale-110">
                                             @else
                                                 <img src="https://via.placeholder.com/100" alt="Service" class="w-12 h-12 rounded-lg object-cover transform transition-transform duration-200 hover:scale-110">
                                             @endif

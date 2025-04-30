@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\AddServiceController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -32,21 +32,22 @@ Route::middleware(['auth','role:user'])->group(function (){
 Route::middleware(['auth','role:admin'])->group(function (){
     Route::prefix('barber')->group(function (){
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
-        Route::get('/add-service', [AdminController::class, 'addService'])->name('admin.add-service');;
-        Route::get('/clients', [AdminController::class, 'clients'])->name('admin.clients');;
-        Route::get('/my-profile', [AdminController::class, 'myProfile'])->name('admin.my-profile');
-        Route::get('manage-services', [AdminController::class, 'manageServices'])->name('admin.manage-services');
+        Route::get('/clients', [AdminController::class, 'clients'])->name('admin.clients');
 
-        Route::post('/my-profile/update', [AdminProfileController::class, 'updateProfile'])->name('admin.update-profile');
+
+        Route::get('/my-profile', [AdminProfileController::class, 'index'])->name('admin.my-profile');
+        Route::post('/my-profile/update', [AdminProfileController::class, 'update'])->name('admin.update-profile');
         Route::post('/my-profile/{user_id}/upload-image', [AdminProfileController::class, 'uploadImage'])->name('admin.upload-image');
-        Route::delete('/my-profile/{user_id}/remove-image', [AdminProfileController::class, 'removeImage'])->name('admin.remove-image');
+        Route::delete('/my-profile/{user_id}/remove-image', [AdminProfileController::class, 'delete'])->name('admin.remove-image');
 
 
-        Route::post('/services/add', [AddServiceController::class, 'addService'])->name('admin.add-services');
-        Route::get('/services/update/{serviceId}', [AddServiceController::class, 'updateService'])->name('admin.update-services');
-        Route::post('/services/update/{serviceId}', [AddServiceController::class, 'editService'])->name('admin.update-service');
-        Route::post('/services/delete/{serviceId}', [AddServiceController::class, 'deleteService'])->name('admin.delete-services');
+        Route::get('/services', [ServiceController::class, 'index'])->name('admin.services');
+        Route::get('/add-service', [ServiceController::class, 'show'])->name('admin.add-service');;
+        Route::get('/services/update/{serviceId}', [ServiceController::class, 'edit'])->name('admin.update-services');
+        Route::get('manage-services', [ServiceController::class, 'manage'])->name('admin.manage-services');
+        Route::post('/services/store', [ServiceController::class, 'store'])->name('admin.add-services');
+        Route::post('/services/update/{serviceId}', [ServiceController::class, 'update'])->name('admin.update-service');
+        Route::post('/services/delete/{serviceId}', [ServiceController::class, 'delete'])->name('admin.delete-services');
     });
 });
 Route::middleware(['auth', 'verified'])->group(function () {
