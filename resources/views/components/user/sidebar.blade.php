@@ -20,6 +20,11 @@
             <i class="fas fa-calendar-alt w-5 mr-3"></i>
             Appointments
         </a>
+        <a href="{{ route('user.bookings') }}"
+           class="flex items-center px-4 py-3 {{ Route::is('user.bookings') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700 text-white' }}">
+            <i class="fas fa-clock w-5 mr-3"></i>
+            Bookings
+        </a>
         <a href="{{ route('user.rewards') }}"
            class="flex items-center px-4 py-3 {{ Route::is('user.rewards') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700 text-white' }}">
             <i class="fas fa-star w-5 mr-3"></i>

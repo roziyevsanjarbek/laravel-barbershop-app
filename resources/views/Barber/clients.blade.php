@@ -394,136 +394,137 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    // Toggle sidebar on mobile
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        const sidebar = document.querySelector('.sidebar');
-        sidebar.classList.toggle('-translate-x-full');
-    });
+{{--<script>--}}
+{{--    // Toggle sidebar on mobile--}}
+{{--    document.getElementById('menu-toggle').addEventListener('click', function() {--}}
+{{--        const sidebar = document.querySelector('.sidebar');--}}
+{{--        sidebar.classList.toggle('-translate-x-full');--}}
+{{--    });--}}
 
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('keyup', function() {
-        const searchValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#clientsTable tr');
+{{--    // Search functionality--}}
+{{--    document.getElementById('searchInput').addEventListener('keyup', function() {--}}
+{{--        const searchValue = this.value.toLowerCase();--}}
+{{--        const rows = document.querySelectorAll('#clientsTable tr');--}}
 
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchValue) ? '' : 'none';
-        });
-    });
+{{--        rows.forEach(row => {--}}
+{{--            const text = row.textContent.toLowerCase();--}}
+{{--            row.style.display = text.includes(searchValue) ? '' : 'none';--}}
+{{--        });--}}
+{{--    });--}}
 
-    // Filter functionality
-    document.getElementById('filterSelect').addEventListener('change', function() {
-        const filterValue = this.value;
-        const rows = document.querySelectorAll('#clientsTable tr');
+{{--    // Filter functionality--}}
+{{--    document.getElementById('filterSelect').addEventListener('change', function() {--}}
+{{--        const filterValue = this.value;--}}
+{{--        const rows = document.querySelectorAll('#clientsTable tr');--}}
 
-        if (filterValue === 'all') {
-            rows.forEach(row => row.style.display = '');
-            return;
-        }
+{{--        if (filterValue === 'all') {--}}
+{{--            rows.forEach(row => row.style.display = '');--}}
+{{--            return;--}}
+{{--        }--}}
 
-        rows.forEach(row => {
-            const clientType = row.querySelector('small.text-muted').textContent.toLowerCase();
-            let shouldShow = false;
+{{--        rows.forEach(row => {--}}
+{{--            const clientType = row.querySelector('small.text-muted').textContent.toLowerCase();--}}
+{{--            let shouldShow = false;--}}
 
-            switch(filterValue) {
-                case 'recent':
-                    shouldShow = clientType.includes('new');
-                    break;
-                case 'frequent':
-                    shouldShow = clientType.includes('frequent');
-                    break;
-                case 'inactive':
-                    // This would need additional data to determine inactive clients
-                    // For demo purposes, we'll just hide all
-                    shouldShow = false;
-                    break;
-            }
+{{--            switch(filterValue) {--}}
+{{--                case 'recent':--}}
+{{--                    shouldShow = clientType.includes('new');--}}
+{{--                    break;--}}
+{{--                case 'frequent':--}}
+{{--                    shouldShow = clientType.includes('frequent');--}}
+{{--                    break;--}}
+{{--                case 'inactive':--}}
+{{--                    // This would need additional data to determine inactive clients--}}
+{{--                    // For demo purposes, we'll just hide all--}}
+{{--                    shouldShow = false;--}}
+{{--                    break;--}}
+{{--            }--}}
 
-            row.style.display = shouldShow ? '' : 'none';
-        });
-    });
+{{--            row.style.display = shouldShow ? '' : 'none';--}}
+{{--        });--}}
+{{--    });--}}
 
-    // Save new client
-    document.getElementById('saveClientBtn').addEventListener('click', function() {
-        const form = document.getElementById('addClientForm');
-        if (form.checkValidity()) {
-            // Here you would normally handle the form submission via AJAX
-            // For demo purposes, we'll just close the modal and show an alert
-            alert('Client saved successfully!');
-            $('#addClientModal').modal('hide');
-            form.reset();
-        } else {
-            form.reportValidity();
-        }
-    });
+{{--    // Save new client--}}
+{{--    document.getElementById('saveClientBtn').addEventListener('click', function() {--}}
+{{--        const form = document.getElementById('addClientForm');--}}
+{{--        if (form.checkValidity()) {--}}
+{{--            // Here you would normally handle the form submission via AJAX--}}
+{{--            // For demo purposes, we'll just close the modal and show an alert--}}
+{{--            alert('Client saved successfully!');--}}
+{{--            $('#addClientModal').modal('hide');--}}
+{{--            form.reset();--}}
+{{--        } else {--}}
+{{--            form.reportValidity();--}}
+{{--        }--}}
+{{--    });--}}
 
-    // Update client
-    document.getElementById('updateClientBtn').addEventListener('click', function() {
-        const form = document.getElementById('editClientForm');
-        if (form.checkValidity()) {
-            // Here you would normally handle the form submission via AJAX
-            alert('Client updated successfully!');
-            $('#editClientModal').modal('hide');
-        } else {
-            form.reportValidity();
-        }
-    });
+{{--    // Update client--}}
+{{--    document.getElementById('updateClientBtn').addEventListener('click', function() {--}}
+{{--        const form = document.getElementById('editClientForm');--}}
+{{--        if (form.checkValidity()) {--}}
+{{--            // Here you would normally handle the form submission via AJAX--}}
+{{--            alert('Client updated successfully!');--}}
+{{--            $('#editClientModal').modal('hide');--}}
+{{--        } else {--}}
+{{--            form.reportValidity();--}}
+{{--        }--}}
+{{--    });--}}
 
-    // Delete client
-    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-        // Here you would normally handle the deletion via AJAX
-        alert('Client deleted successfully!');
-        $('#deleteClientModal').modal('hide');
-    });
+{{--    // Delete client--}}
+{{--    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {--}}
+{{--        // Here you would normally handle the deletion via AJAX--}}
+{{--        alert('Client deleted successfully!');--}}
+{{--        $('#deleteClientModal').modal('hide');--}}
+{{--    });--}}
 
-    // Populate edit form when edit button is clicked
-    document.querySelectorAll('[data-bs-target="#editClientModal"]').forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.closest('tr');
-            const name = row.querySelector('h6').textContent.split(' ');
-            const firstName = name[0];
-            const lastName = name[1];
-            const email = row.querySelectorAll('td')[2].textContent;
-            const phone = row.querySelectorAll('td')[1].textContent;
+{{--    // Populate edit form when edit button is clicked--}}
+{{--    document.querySelectorAll('[data-bs-target="#editClientModal"]').forEach(button => {--}}
+{{--        button.addEventListener('click', function() {--}}
+{{--            const row = this.closest('tr');--}}
+{{--            const name = row.querySelector('h6').textContent.split(' ');--}}
+{{--            const firstName = name[0];--}}
+{{--            const lastName = name[1];--}}
+{{--            const email = row.querySelectorAll('td')[2].textContent;--}}
+{{--            const phone = row.querySelectorAll('td')[1].textContent;--}}
 
-            document.getElementById('editFirstName').value = firstName;
-            document.getElementById('editLastName').value = lastName;
-            document.getElementById('editEmail').value = email;
-            document.getElementById('editPhone').value = phone;
-        });
-    });
+{{--            document.getElementById('editFirstName').value = firstName;--}}
+{{--            document.getElementById('editLastName').value = lastName;--}}
+{{--            document.getElementById('editEmail').value = email;--}}
+{{--            document.getElementById('editPhone').value = phone;--}}
+{{--        });--}}
+{{--    });--}}
 
-    // Populate view details when view button is clicked
-    document.querySelectorAll('[data-bs-target="#viewClientModal"]').forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.closest('tr');
-            const name = row.querySelector('h6').textContent.split(' ');
-            const firstName = name[0];
-            const lastName = name[1];
-            const email = row.querySelectorAll('td')[2].textContent;
-            const phone = row.querySelectorAll('td')[1].textContent;
-            const address = row.querySelectorAll('td')[3].textContent;
-            const lastVisit = row.querySelectorAll('td')[4].textContent;
-            const visits = row.querySelectorAll('td')[5].textContent;
-            const clientType = row.querySelector('small.text-muted').textContent;
-        });
-        document.getElementById('clientFullName').textContent = `${firstName} ${lastName}`;
-        document.getElementById('clientEmail').textContent = email;
-        document.getElementById('clientPhone').textContent = phone;
-        document.getElementById('clientAddress').textContent = address;
-        document.getElementById('clientLastVisit').textContent = lastVisit;
-        document.getElementById('clientVisits').textContent = visits;
-        document.getElementById('clientTypeLabel').textContent = clientType;
-    });
-    // Populate delete confirmation when delete button is clicked
-    document.querySelectorAll('[data-bs-target="#deleteClientModal"]').forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.closest('tr');
-            const clientId = row.querySelector('td').textContent; // Assuming the first cell contains the client ID
-            document.getElementById('deleteClientId').value = clientId;
-        });
-    });
-</script>
+{{--    // Populate view details when view button is clicked--}}
+{{--    document.querySelectorAll('[data-bs-target="#viewClientModal"]').forEach(button => {--}}
+{{--        button.addEventListener('click', function() {--}}
+{{--            const row = this.closest('tr');--}}
+{{--            const name = row.querySelector('h6').textContent.split(' ');--}}
+{{--            const firstName = name[0];--}}
+{{--            const lastName = name[1];--}}
+{{--            const email = row.querySelectorAll('td')[2].textContent;--}}
+{{--            const phone = row.querySelectorAll('td')[1].textContent;--}}
+{{--            const address = row.querySelectorAll('td')[3].textContent;--}}
+{{--            const lastVisit = row.querySelectorAll('td')[4].textContent;--}}
+{{--            const visits = row.querySelectorAll('td')[5].textContent;--}}
+{{--            const clientType = row.querySelector('small.text-muted').textContent;--}}
+{{--        });--}}
+{{--        document.getElementById('clientFullName').textContent = `${firstName} ${lastName}`;--}}
+{{--        document.getElementById('clientEmail').textContent = email;--}}
+{{--        document.getElementById('clientPhone').textContent = phone;--}}
+{{--        document.getElementById('clientAddress').textContent = address;--}}
+{{--        document.getElementById('clientLastVisit').textContent = lastVisit;--}}
+{{--        document.getElementById('clientVisits').textContent = visits;--}}
+{{--        document.getElementById('clientTypeLabel').textContent = clientType;--}}
+{{--    });--}}
+{{--    // Populate delete confirmation when delete button is clicked--}}
+{{--    document.querySelectorAll('[data-bs-target="#deleteClientModal"]').forEach(button => {--}}
+{{--        button.addEventListener('click', function() {--}}
+{{--            const row = this.closest('tr');--}}
+{{--            const clientId = row.querySelector('td').textContent; // Assuming the first cell contains the client ID--}}
+{{--            document.getElementById('deleteClientId').value = clientId;--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}
+</div>
 </div>
 <x-admin.footer></x-admin.footer>

@@ -14,7 +14,6 @@
             <x-user.sidebar></x-user.sidebar>
         </div>
 
-
         <!-- Main Content -->
         <div class="flex-1">
             <!-- Login Modal -->
@@ -52,6 +51,7 @@
                             <button onclick="closeModal('registerModal')" class="text-gray-500 hover:text-gray-700">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                    maan
                                 </svg>
                             </button>
                         </div>
@@ -74,35 +74,29 @@
                 </div>
             </div>
 
-
             <div class="container mx-auto px-4 py-8">
                 <!-- Progress Bar -->
                 <div class="mb-8">
                     <div class="flex justify-between">
                         <div class="w-1/5 text-center">
-                            <div class="bg-blue-500 rounded-full h-8 w-8 mx-auto flex items-center justify-center text-white">1</div>
                             <div class="mt-2 text-sm">Services</div>
                         </div>
                         <div class="w-1/5 text-center">
-                            <div class="bg-gray-300 rounded-full h-8 w-8 mx-auto flex items-center justify-center">2</div>
                             <div class="mt-2 text-sm">Date & Time</div>
                         </div>
                         <div class="w-1/5 text-center">
-                            <div class="bg-gray-300 rounded-full h-8 w-8 mx-auto flex items-center justify-center">3</div>
                             <div class="mt-2 text-sm">Barber</div>
                         </div>
                         <div class="w-1/5 text-center">
-                            <div class="bg-gray-300 rounded-full h-8 w-8 mx-auto flex items-center justify-center">4</div>
                             <div class="mt-2 text-sm">Details</div>
                         </div>
                         <div class="w-1/5 text-center">
-                            <div class="bg-gray-300 rounded-full h-8 w-8 mx-auto flex items-center justify-center">5</div>
                             <div class="mt-2 text-sm">Confirm</div>
                         </div>
                     </div>
                     <div class="relative mt-4">
                         <div class="absolute w-full h-1 bg-gray-200"></div>
-                        <div class="absolute w-1/4 h-1 bg-blue-500"></div>
+                        <div class="absolute h-1 bg-blue-500" style="width: 25%;"></div>
                     </div>
                 </div>
 
@@ -221,8 +215,6 @@
 
 <x-user.footer></x-user.footer>
 
-
-
 <script>
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', function() {
@@ -258,7 +250,7 @@
     // Booking step navigation
     document.addEventListener('DOMContentLoaded', function() {
         const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5'];
-        let currentStep = 0;
+        let currentStep = 1; // Start at step 1 to align with "Services"
 
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -267,32 +259,32 @@
         function updateSteps() {
             steps.forEach((step, index) => {
                 const element = document.querySelector(`.${step}`);
-                if (index === currentStep) {
+                if (index === currentStep - 1) { // Adjust for zero-based index
                     element.classList.remove('hidden');
                 } else {
                     element.classList.add('hidden');
                 }
             });
 
-            // Update progress bar
-            const progress = (currentStep + 1) * 25;
+            // Update progress bar (25% per step)
+            const progress = currentStep * 25; // 25% at step 1, 50% at step 2, etc.
             document.querySelector('.bg-blue-500').style.width = `${progress}%`;
 
             // Update buttons
-            prevBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
-            nextBtn.textContent = currentStep === steps.length - 1 ? 'Confirm Booking' : 'Next';
+            prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+            nextBtn.textContent = currentStep === steps.length ? 'Confirm Booking' : 'Next';
         }
 
         // Button event listeners
         prevBtn.addEventListener('click', () => {
-            if (currentStep > 0) {
+            if (currentStep > 1) {
                 currentStep--;
                 updateSteps();
             }
         });
 
         nextBtn.addEventListener('click', () => {
-            if (currentStep < steps.length - 1) {
+            if (currentStep < steps.length) {
                 currentStep++;
                 updateSteps();
             } else {
@@ -343,4 +335,3 @@
         updateSteps();
     });
 </script>
-

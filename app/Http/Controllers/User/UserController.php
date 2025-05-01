@@ -29,10 +29,11 @@ class UserController extends Controller
 
     public function services()
     {
-        $services = Service::with('images')->get();
-        $categories = Category::query()->whereHas('services')->get();
+        $categories = Category::query()
+            ->whereHas('services')
+            ->with(['services.images'])
+            ->get();
         return view('User.service', [
-            'services' => $services,
             'categories' => $categories,
         ]);
     }

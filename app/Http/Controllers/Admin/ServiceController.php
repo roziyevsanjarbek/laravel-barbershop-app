@@ -17,7 +17,10 @@ class ServiceController extends Controller
         $user = User::findOrFail(auth()->user()->id);
         $image = $user->image;
         $services = Service::with('images')->get();
-        $categories = Category::query()->whereHas('services')->get();
+        $categories = Category::query()
+            ->whereHas('services')
+            ->with(['services.images'])
+            ->get();
         return view('Barber.services.services', [
             'user' => $user,
             'image' => $image,
