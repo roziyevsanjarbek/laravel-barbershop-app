@@ -9,13 +9,13 @@
 
     <!-- Main Content -->
 
-    <div class="ml-64 p-8 w-full">
-        <div class="flex justify-between items-center mb-6">
+    <div class="ml-64 p-1 w-full">
+        <div class="flex mb-6">
             <div class="flex-1">
                 @if($image)
-                <x-admin.navbar :image="$image"></x-admin.navbar>
+                    <x-admin.navbar :image="$image"></x-admin.navbar>
                 @else
-                <x-admin.navbar :image="null"></x-admin.navbar>
+                    <x-admin.navbar :image="null"></x-admin.navbar>
                 @endif
             </div>
         </div>

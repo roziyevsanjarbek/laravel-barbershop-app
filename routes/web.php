@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BarberController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
@@ -48,6 +49,9 @@ Route::middleware(['auth','role:admin'])->group(function (){
         Route::post('/services/store', [ServiceController::class, 'store'])->name('admin.add-services');
         Route::post('/services/update/{serviceId}', [ServiceController::class, 'update'])->name('admin.update-service');
         Route::post('/services/delete/{serviceId}', [ServiceController::class, 'delete'])->name('admin.delete-services');
+
+
+        Route::get('/barbers', [BarberController::class, 'index'])->name('admin.barbers');
     });
 });
 
