@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barber;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,9 +17,11 @@ class BarberController extends Controller
     {
         $user = User::findOrFail(auth()->user()->id);
         $image = $user->image;
+        $barbers = Barber::with('images')->get();
         return view('Barber.barbers', [
             'user' => $user,
             'image' => $image,
+            'barbers' => $barbers,
         ]);
     }
 
@@ -34,7 +38,56 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = $request->validate([
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|',
+            'address' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'barberType' => 'required|string|max:255',
+            'barberImage' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+
+        ]);
+
+        $imagePath = null;
+        $imageName = null;
+
+        if ($request->hasFile('barberImage')) {
+            $imageFile = $request->file('barberImage');
+            $imageName = time() . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+        }
+
+        $destinationPath = public_path('barbers');
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+        $imageFile->move($destinationPath, $imageName);
+
+        $imagePath = 'barbers/' . $imageName;
+
+
+
+        $barber = Barber::create([
+            'first_name' => $validator['firstName'],
+            'last_name' => $validator['lastName'],
+            'email' => $validator['email'],
+            'phone' => $validator['phone'],
+            'address' => $validator['address'],
+            'birthday' => $validator['birthday'],
+            'barber_type' => $validator['barberType'],
+        ]);
+
+
+        if($imagePath){
+            $image = new Image();
+            $image->path = $imagePath;
+            $image->name = $imageName;
+            $barber->images()->save($image);
+        }
+
+        return redirect()->route('admin.barbers')->with('success', 'Barber created successfully.');
     }
 
     /**
@@ -58,7 +111,27 @@ class BarberController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = $request->validate([
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|',
+            'address' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'barberType' => 'required|string|max:255',
+        ]);
+
+        $barber = Barber::query()->update([
+            'first_name' => $validator['firstName'],
+            'last_name' => $validator['lastName'],
+            'email' => $validator['email'],
+            'phone' => $validator['phone'],
+            'address' => $validator['address'],
+            'birthday' => $validator['birthday'],
+            'barber_type' => $validator['barberType'],
+        ]);
+
+        return redirect()->route('admin.barbers')->with('success', 'Barber updated successfully.');
     }
 
     /**
@@ -66,6 +139,20 @@ class BarberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barber = Barber::findOrFail($id);
+        
+        if ($barber->images) {
+            $imagePath = public_path($barber->images->path);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $barber->images->delete();
+        }
+
+
+        $barber->delete();
+
+        return redirect()->route('admin.barbers')->with('success', 'Barber deleted successfully.');
     }
+
 }

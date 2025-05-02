@@ -52,6 +52,9 @@ Route::middleware(['auth','role:admin'])->group(function (){
 
 
         Route::get('/barbers', [BarberController::class, 'index'])->name('admin.barbers');
+        Route::post('/barbers/add', [BarberController::class, 'store'])->name('admin.add-barber');
+        Route::post('/barbers/update/{barberId}', [BarberController::class, 'update'])->name('admin.update-barber');
+        Route::post('/barbers/delete/{barberId}', [BarberController::class, 'destroy'])->name('admin.delete-barber');
     });
 });
 

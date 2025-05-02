@@ -21,13 +21,13 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title mb-4">Client Management</h1>
+                                    <h1 class="card-title mb-4">Barber Management</h1>
 
                                     <!-- Search and Filter -->
                                     <div class="row mb-4">
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search clients..." id="searchInput">
+                                                <input type="text" class="form-control" placeholder="Search barbers..." id="searchInput">
                                                 <button class="btn btn-primary" type="button">
                                                     <i class="fas fa-search"></i> Search
                                                 </button>
@@ -35,137 +35,61 @@
                                         </div>
                                         <div class="col-md-4">
                                             <select class="form-select" id="filterSelect">
-                                                <option value="all">All Clients</option>
+                                                <option value="all">All Barbers</option>
                                                 <option value="recent">Recently Added</option>
                                                 <option value="frequent">Frequent Customers</option>
-                                                <option value="inactive">Inactive Clients</option>
+                                                <option value="inactive">Inactive Barbers</option>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#addClientModal">
+                                            <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#addBarberModal">
                                                 <i class="fas fa-plus"></i> Add New
                                             </button>
                                         </div>
                                     </div>
 
-                                    <!-- Clients List -->
+                                    <!-- Barbers List -->
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Client</th>
+                                                <th>Barber</th>
                                                 <th>Phone</th>
                                                 <th>Email</th>
-                                                <th>Last Visit</th>
-                                                <th>Total Visits</th>
+                                                <th>Last Barber</th>
+                                                <th>Total Barber</th>
                                                 <th>Actions</th>
                                             </tr>
                                             </thead>
-                                            <tbody id="clientsTable">
+                                            <tbody id="barbersTable">
+                                            @foreach($barbers as $barber)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="client-avatar me-3">
+                                                        <img src=" {{ asset($barber->images->path) }}" alt="Barber" class="client-avatar me-3">
                                                         <div>
-                                                            <h6 class="mb-0">John Smith</h6>
-                                                            <small class="text-muted">Regular Customer</small>
+                                                            <h6 class="mb-0">{{ $barber->first_name}} {{ $barber->last_name }}</h6>
+                                                            <small class="text-muted">{{ $barber->barber_type }} barber</small>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>(555) 123-4567</td>
-                                                <td>john.smith@example.com</td>
+                                                <td>{{ $barber->phone }}</td>
+                                                <td>{{ $barber->email }}</td>
                                                 <td>May 15, 2023</td>
                                                 <td><span class="badge bg-success">24</span></td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewClientModal">
+                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewBarberModal">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal">
+                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBarberModal">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClientModal">
+                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBarberModal">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="client-avatar me-3">
-                                                        <div>
-                                                            <h6 class="mb-0">Maria Johnson</h6>
-                                                            <small class="text-muted">New Customer</small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>(555) 987-6543</td>
-                                                <td>maria.j@example.com</td>
-                                                <td>June 2, 2023</td>
-                                                <td><span class="badge bg-primary">3</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewClientModal">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClientModal">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Client" class="client-avatar me-3">
-                                                        <div>
-                                                            <h6 class="mb-0">Robert Brown</h6>
-                                                            <small class="text-muted">Frequent Customer</small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>(555) 234-5678</td>
-                                                <td>robert.b@example.com</td>
-                                                <td>June 10, 2023</td>
-                                                <td><span class="badge bg-success">18</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewClientModal">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClientModal">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Client" class="client-avatar me-3">
-                                                        <div>
-                                                            <h6 class="mb-0">Emma Davis</h6>
-                                                            <small class="text-muted">Regular Customer</small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>(555) 876-5432</td>
-                                                <td>emma.d@example.com</td>
-                                                <td>May 25, 2023</td>
-                                                <td><span class="badge bg-success">12</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewClientModal">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClientModal">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -192,116 +116,51 @@
             </div>
         </div>
 
-        <!-- Add Client Modal -->
-        <div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+        <!-- Add Barber Modal -->
+        <div class="modal fade" id="addBarberModal" tabindex="-1" aria-labelledby="addBarberModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addClientForm">
+                    <form id="addBarberForm" action="{{ route('admin.add-barber') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addBarberModalLabel">Add New Barber</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" required>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" required>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="phone" class="form-label">Phone</label>
-                                        <input type="tel" class="form-control" id="phone" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="birthday" class="form-label">Birthday</label>
-                                        <input type="date" class="form-control" id="birthday">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="clientType" class="form-label">Client Type</label>
-                                        <select class="form-select" id="clientType">
-                                            <option value="new">New Customer</option>
-                                            <option value="regular">Regular Customer</option>
-                                            <option value="frequent">Frequent Customer</option>
-                                            <option value="vip">VIP Customer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="notes" class="form-label">Notes</label>
-                                    <textarea class="form-control" id="notes" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="saveClientBtn">Save Client</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Client Modal -->
-        <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editClientModalLabel">Edit Client</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editClientForm">
-                            <input type="hidden" id="editClientId">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="editFirstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="editFirstName" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="editLastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="editLastName" required>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="editEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="editEmail" required>
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="editPhone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" id="editPhone" required>
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label for="editAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="editAddress">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="editBirthday" class="form-label">Birthday</label>
-                                    <input type="date" class="form-control" id="editBirthday">
+                                    <label for="birthday" class="form-label">Birthday</label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="editClientType" class="form-label">Client Type</label>
-                                    <select class="form-select" id="editClientType">
+                                    <label for="barberType" class="form-label">Barber Type</label>
+                                    <select class="form-select" id="barberType" name="barberType" required>
                                         <option value="new">New Customer</option>
                                         <option value="regular">Regular Customer</option>
                                         <option value="frequent">Frequent Customer</option>
@@ -309,58 +168,159 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="editNotes" class="form-label">Notes</label>
-                                <textarea class="form-control" id="editNotes" rows="3"></textarea>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0">Barber Image</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <img src="{{ asset('img/placeholder-service.jpg') }}" alt="Barber Preview" class="img-fluid rounded mb-3" id="serviceImagePreview" style="max-height: 200px; width: auto;">
+                                            <div class="d-grid">
+                                                <label for="serviceImage" class="btn btn-outline-primary">
+                                                    <i class="fas fa-upload me-2"></i> Upload Image
+                                                </label>
+                                                <input type="file" class="d-none" id="serviceImage" name="barberImage" accept="image/*" required>
+                                            </div>
+                                            <small class="text-muted">Recommended size: 800x600 pixels</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="updateClientBtn">Update Client</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Barber</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- View Client Modal -->
-        <div class="modal fade" id="viewClientModal" tabindex="-1" aria-labelledby="viewClientModalLabel" aria-hidden="true">
+
+
+        <!-- Edit Barber Modal -->
+        <div class="modal fade" id="editBarberModal" tabindex="-1" aria-labelledby="editBarberModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form id="editBarberForm" action="{{ route('admin.update-barber', $barber->id) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        @csrf
+                        <input type="hidden" id="editBarberId" name="id">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editBarberModalLabel">Edit Barber</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="editFirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="editFirstName" name="firstName" value="{{ $barber->first_name }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="editLastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="editLastName" name="lastName" value="{{ $barber->last_name }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="editEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="editEmail" name="email" value="{{ $barber->email }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="editPhone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="editPhone" name="phone" value="{{ $barber->phone }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="editAddress" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="editAddress" name="address" value="{{ $barber->address }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="editBirthday" class="form-label">Birthday</label>
+                                    <input type="date" class="form-control" id="editBirthday" name="birthday" value="{{ $barber->birthday }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="editBarberType" class="form-label">Barber Type</label>
+                                    <select class="form-select" id="editBarberType" name="barberType" required>
+                                        <option value="new" {{ $barber->barber_type === 'new' ? 'selected' : '' }}>New Barber</option>
+                                        <option value="regular" {{ $barber->barber_type === 'regular' ? 'selected' : '' }}>Regular Barber</option>
+                                        <option value="frequent" {{ $barber->barber_type === 'frequent' ? 'selected' : '' }}>Frequent Barber</option>
+                                        <option value="vip" {{ $barber->barber_type === 'vip' ? 'selected' : '' }}>VIP Barber</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0">Barber Image</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <img src="{{ asset($barber->images->path ?? 'img/placeholder-service.jpg') }}" alt="Barber Preview" class="img-fluid rounded mb-3" id="editBarberImagePreview" style="max-height: 200px; width: auto;">
+                                            <div class="d-grid">
+                                                <label for="editServiceImage" class="btn btn-outline-primary">
+                                                    <i class="fas fa-upload me-2"></i> Upload Image
+                                                </label>
+                                                <input type="file" class="d-none" id="editServiceImage" name="barberImage" accept="image/*">
+                                            </div>
+                                            <small class="text-muted">Recommended size: 800x600 pixels</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update Barber</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Barber Modal -->
+        <div class="modal fade" id="viewBarberModal" tabindex="-1" aria-labelledby="viewBarberModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewClientModalLabel">Client Details</h5>
+                        <h5 class="modal-title" id="viewBarberModalLabel">Barber Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-4 text-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                                <h4 id="clientFullName">John Smith</h4>
-                                <span class="badge bg-success" id="clientTypeLabel">Regular Customer</span>
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Barber" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                <h4 id="barberFullName">John Smith</h4>
+                                <span class="badge bg-success" id="barberTypeLabel">Regular Customer</span>
                             </div>
                             <div class="col-md-8">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <h6>Contact Information</h6>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><i class="fas fa-envelope me-2"></i> <span id="clientEmail">john.smith@example.com</span></li>
-                                            <li class="list-group-item"><i class="fas fa-phone me-2"></i> <span id="clientPhone">(555) 123-4567</span></li>
-                                            <li class="list-group-item"><i class="fas fa-map-marker-alt me-2"></i> <span id="clientAddress">123 Main St, Anytown, USA</span></li>
+                                            <li class="list-group-item"><i class="fas fa-envelope me-2"></i> <span id="barberEmail">john.smith@example.com</span></li>
+                                            <li class="list-group-item"><i class="fas fa-phone me-2"></i> <span id="barberPhone">(555) 123-4567</span></li>
+                                            <li class="list-group-item"><i class="fas fa-map-marker-alt me-2"></i> <span id="barberAddress">123 Main St, Anytown, USA</span></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
                                         <h6>Customer Info</h6>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><i class="fas fa-calendar-alt me-2"></i> Birthday: <span id="clientBirthday">Jan 15, 1985</span></li>
-                                            <li class="list-group-item"><i class="fas fa-clipboard-list me-2"></i> Total Visits: <span id="clientVisits">24</span></li>
-                                            <li class="list-group-item"><i class="fas fa-clock me-2"></i> Last Visit: <span id="clientLastVisit">May 15, 2023</span></li>
+                                            <li class="list-group-item"><i class="fas fa-calendar-alt me-2"></i> Birthday: <span id="barberBirthday">Jan 15, 1985</span></li>
+                                            <li class="list-group-item"><i class="fas fa-clipboard-list me-2"></i> Total Visits: <span id="barberVisits">24</span></li>
+                                            <li class="list-group-item"><i class="fas fa-clock me-2"></i> Last Visit: <span id="barberLastVisit">May 15, 2023</span></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <h6>Notes</h6>
-                                        <p id="clientNotes" class="border rounded p-3">Prefers short haircuts. Has sensitive scalp. Always arrives on time.</p>
+                                        <p id="barberNotes" class="border rounded p-3">Prefers short haircuts. Has sensitive scalp. Always arrives on time.</p>
                                     </div>
                                 </div>
                             </div>
@@ -368,167 +328,191 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal">Edit Client</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editBarberModal">Edit Barber</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Delete Client Modal -->
-        <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" aria-hidden="true">
+        <!-- Delete Barber Modal -->
+        <div class="modal fade" id="deleteBarberModal" tabindex="-1" aria-labelledby="deleteBarberModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <form  method="POST" action="{{ route('admin.delete-barber', $barber->id) }}" class="modal-content">
+                    @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteClientModalLabel">Confirm Deletion</h5>
+                        <h5 class="modal-title" id="deleteBarberModalLabel">Confirm Deletion</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete this client? This action cannot be undone.</p>
-                        <input type="hidden" id="deleteClientId">
+                        <p>Are you sure you want to delete this Barber? This action cannot be undone.</p>
+                        <input type="hidden" id="deleteBarberId" name="id">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete Client</button>
+                        <button type="submit" class="btn btn-danger">Delete Barber</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+
 
         <!-- Bootstrap and jQuery JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            // Toggle sidebar on mobile
-            document.getElementById('menu-toggle').addEventListener('click', function() {
-                const sidebar = document.querySelector('.sidebar');
-                sidebar.classList.toggle('-translate-x-full');
-            });
-
-            // Search functionality
-            document.getElementById('searchInput').addEventListener('keyup', function() {
-                const searchValue = this.value.toLowerCase();
-                const rows = document.querySelectorAll('#clientsTable tr');
-
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchValue) ? '' : 'none';
-                });
-            });
-
-            // Filter functionality
-            document.getElementById('filterSelect').addEventListener('change', function() {
-                const filterValue = this.value;
-                const rows = document.querySelectorAll('#clientsTable tr');
-
-                if (filterValue === 'all') {
-                    rows.forEach(row => row.style.display = '');
-                    return;
+            document.getElementById('serviceImage').addEventListener('change', function (event) {
+                const preview = document.getElementById('serviceImagePreview');
+                const file = event.target.files[0];
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
                 }
-
-                rows.forEach(row => {
-                    const clientType = row.querySelector('small.text-muted').textContent.toLowerCase();
-                    let shouldShow = false;
-
-                    switch(filterValue) {
-                        case 'recent':
-                            shouldShow = clientType.includes('new');
-                            break;
-                        case 'frequent':
-                            shouldShow = clientType.includes('frequent');
-                            break;
-                        case 'inactive':
-                            // This would need additional data to determine inactive clients
-                            // For demo purposes, we'll just hide all
-                            shouldShow = false;
-                            break;
-                    }
-
-                    row.style.display = shouldShow ? '' : 'none';
-                });
-            });
-
-            // Save new client
-            document.getElementById('saveClientBtn').addEventListener('click', function() {
-                const form = document.getElementById('addClientForm');
-                if (form.checkValidity()) {
-                    // Here you would normally handle the form submission via AJAX
-                    // For demo purposes, we'll just close the modal and show an alert
-                    alert('Client saved successfully!');
-                    $('#addClientModal').modal('hide');
-                    form.reset();
-                } else {
-                    form.reportValidity();
-                }
-            });
-
-            // Update client
-            document.getElementById('updateClientBtn').addEventListener('click', function() {
-                const form = document.getElementById('editClientForm');
-                if (form.checkValidity()) {
-                    // Here you would normally handle the form submission via AJAX
-                    alert('Client updated successfully!');
-                    $('#editClientModal').modal('hide');
-                } else {
-                    form.reportValidity();
-                }
-            });
-
-            // Delete client
-            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-                // Here you would normally handle the deletion via AJAX
-                alert('Client deleted successfully!');
-                $('#deleteClientModal').modal('hide');
-            });
-
-            // Populate edit form when edit button is clicked
-            document.querySelectorAll('[data-bs-target="#editClientModal"]').forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const name = row.querySelector('h6').textContent.split(' ');
-                    const firstName = name[0];
-                    const lastName = name[1];
-                    const email = row.querySelectorAll('td')[2].textContent;
-                    const phone = row.querySelectorAll('td')[1].textContent;
-
-                    document.getElementById('editFirstName').value = firstName;
-                    document.getElementById('editLastName').value = lastName;
-                    document.getElementById('editEmail').value = email;
-                    document.getElementById('editPhone').value = phone;
-                });
-            });
-
-            // Populate view details when view button is clicked
-            document.querySelectorAll('[data-bs-target="#viewClientModal"]').forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const name = row.querySelector('h6').textContent.split(' ');
-                    const firstName = name[0];
-                    const lastName = name[1];
-                    const email = row.querySelectorAll('td')[2].textContent;
-                    const phone = row.querySelectorAll('td')[1].textContent;
-                    const address = row.querySelectorAll('td')[3].textContent;
-                    const lastVisit = row.querySelectorAll('td')[4].textContent;
-                    const visits = row.querySelectorAll('td')[5].textContent;
-                    const clientType = row.querySelector('small.text-muted').textContent;
-                });
-                document.getElementById('clientFullName').textContent = `${firstName} ${lastName}`;
-                document.getElementById('clientEmail').textContent = email;
-                document.getElementById('clientPhone').textContent = phone;
-                document.getElementById('clientAddress').textContent = address;
-                document.getElementById('clientLastVisit').textContent = lastVisit;
-                document.getElementById('clientVisits').textContent = visits;
-                document.getElementById('clientTypeLabel').textContent = clientType;
-            });
-            // Populate delete confirmation when delete button is clicked
-            document.querySelectorAll('[data-bs-target="#deleteClientModal"]').forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const clientId = row.querySelector('td').textContent; // Assuming the first cell contains the client ID
-                    document.getElementById('deleteClientId').value = clientId;
-                });
             });
         </script>
+        <script>
+            document.getElementById('editBarberImage').addEventListener('change', function (event) {
+                const preview = document.getElementById('editBarberImagePreview');
+                const file = event.target.files[0];
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
+                }
+            });
+        </script>
+
+
+
+
+        {{--        <script>--}}
+{{--            // Toggle sidebar on mobile--}}
+{{--            document.getElementById('menu-toggle').addEventListener('click', function() {--}}
+{{--                const sidebar = document.querySelector('.sidebar');--}}
+{{--                sidebar.classList.toggle('-translate-x-full');--}}
+{{--            });--}}
+
+{{--            // Search functionality--}}
+{{--            document.getElementById('searchInput').addEventListener('keyup', function() {--}}
+{{--                const searchValue = this.value.toLowerCase();--}}
+{{--                const rows = document.querySelectorAll('#barbersTable tr');--}}
+
+{{--                rows.forEach(row => {--}}
+{{--                    const text = row.textContent.toLowerCase();--}}
+{{--                    row.style.display = text.includes(searchValue) ? '' : 'none';--}}
+{{--                });--}}
+{{--            });--}}
+
+{{--            // Filter functionality--}}
+{{--            document.getElementById('filterSelect').addEventListener('change', function() {--}}
+{{--                const filterValue = this.value;--}}
+{{--                const rows = document.querySelectorAll('#barbersTable tr');--}}
+
+{{--                if (filterValue === 'all') {--}}
+{{--                    rows.forEach(row => row.style.display = '');--}}
+{{--                    return;--}}
+{{--                }--}}
+
+{{--                rows.forEach(row => {--}}
+{{--                    const barberType = row.querySelector('small.text-muted').textContent.toLowerCase();--}}
+{{--                    let shouldShow = false;--}}
+
+{{--                    switch(filterValue) {--}}
+{{--                        case 'recent':--}}
+{{--                            shouldShow = barberType.includes('new');--}}
+{{--                            break;--}}
+{{--                        case 'frequent':--}}
+{{--                            shouldShow = barberType.includes('frequent');--}}
+{{--                            break;--}}
+{{--                        case 'inactive':--}}
+{{--                            // This would need additional data to determine inactive barbers--}}
+{{--                            // For demo purposes, we'll just hide all--}}
+{{--                            shouldShow = false;--}}
+{{--                            break;--}}
+{{--                    }--}}
+
+{{--                    row.style.display = shouldShow ? '' : 'none';--}}
+{{--                });--}}
+{{--            });--}}
+
+{{--            // Save new barber--}}
+{{--            document.getElementById('saveBarberBtn').addEventListener('click', function() {--}}
+{{--                const form = document.getElementById('addBarberForm');--}}
+{{--                if (form.checkValidity()) {--}}
+{{--                    // Here you would normally handle the form submission via AJAX--}}
+{{--                    // For demo purposes, we'll just close the modal and show an alert--}}
+{{--                    alert('Barber saved successfully!');--}}
+{{--                    $('#addBarberModal').modal('hide');--}}
+{{--                    form.reset();--}}
+{{--                } else {--}}
+{{--                    form.reportValidity();--}}
+{{--                }--}}
+{{--            });--}}
+
+{{--            // Update barber--}}
+{{--            document.getElementById('updateBarberBtn').addEventListener('click', function() {--}}
+{{--                const form = document.getElementById('editBarberForm');--}}
+{{--                if (form.checkValidity()) {--}}
+{{--                    // Here you would normally handle the form submission via AJAX--}}
+{{--                    alert('Barber updated successfully!');--}}
+{{--                    $('#editBarberModal').modal('hide');--}}
+{{--                } else {--}}
+{{--                    form.reportValidity();--}}
+{{--                }--}}
+{{--            });--}}
+
+{{--            // Delete barber--}}
+{{--            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {--}}
+{{--                // Here you would normally handle the deletion via AJAX--}}
+{{--                alert('Barber deleted successfully!');--}}
+{{--                $('#deleteBarberModal').modal('hide');--}}
+{{--            });--}}
+
+{{--            // Populate edit form when edit button is clicked--}}
+{{--            document.querySelectorAll('[data-bs-target="#editBarberModal"]').forEach(button => {--}}
+{{--                button.addEventListener('click', function() {--}}
+{{--                    const row = this.closest('tr');--}}
+{{--                    const name = row.querySelector('h6').textContent.split(' ');--}}
+{{--                    const firstName = name[0];--}}
+{{--                    const lastName = name[1];--}}
+{{--                    const email = row.querySelectorAll('td')[2].textContent;--}}
+{{--                    const phone = row.querySelectorAll('td')[1].textContent;--}}
+
+{{--                    document.getElementById('editFirstName').value = firstName;--}}
+{{--                    document.getElementById('editLastName').value = lastName;--}}
+{{--                    document.getElementById('editEmail').value = email;--}}
+{{--                    document.getElementById('editPhone').value = phone;--}}
+{{--                });--}}
+{{--            });--}}
+
+{{--            // Populate view details when view button is clicked--}}
+{{--            document.querySelectorAll('[data-bs-target="#viewBarberModal"]').forEach(button => {--}}
+{{--                button.addEventListener('click', function() {--}}
+{{--                    const row = this.closest('tr');--}}
+{{--                    const name = row.querySelector('h6').textContent.split(' ');--}}
+{{--                    const firstName = name[0];--}}
+{{--                    const lastName = name[1];--}}
+{{--                    const email = row.querySelectorAll('td')[2].textContent;--}}
+{{--                    const phone = row.querySelectorAll('td')[1].textContent;--}}
+{{--                    const address = row.querySelectorAll('td')[3].textContent;--}}
+{{--                    const lastVisit = row.querySelectorAll('td')[4].textContent;--}}
+{{--                    const visits = row.querySelectorAll('td')[5].textContent;--}}
+{{--                    const barberType = row.querySelector('small.text-muted').textContent;--}}
+{{--                });--}}
+{{--                document.getElementById('barberFullName').textContent = `${firstName} ${lastName}`;--}}
+{{--                document.getElementById('barberEmail').textContent = email;--}}
+{{--                document.getElementById('barberPhone').textContent = phone;--}}
+{{--                document.getElementById('barberAddress').textContent = address;--}}
+{{--                document.getElementById('barberLastVisit').textContent = lastVisit;--}}
+{{--                document.getElementById('barberVisits').textContent = visits;--}}
+{{--                document.getElementById('barberTypeLabel').textContent = barberType;--}}
+{{--            });--}}
+{{--            // Populate delete confirmation when delete button is clicked--}}
+{{--            document.querySelectorAll('[data-bs-target="#deleteBarberModal"]').forEach(button => {--}}
+{{--                button.addEventListener('click', function() {--}}
+{{--                    const row = this.closest('tr');--}}
+{{--                    const barberId = row.querySelector('td').textContent; // Assuming the first cell contains the barber ID--}}
+{{--                    document.getElementById('deleteBarberId').value = barberId;--}}
+{{--                });--}}
+{{--            });--}}
+{{--        </script>--}}
     </div>
 </div>
 <x-admin.footer></x-admin.footer>
