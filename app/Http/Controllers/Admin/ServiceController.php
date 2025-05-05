@@ -31,12 +31,14 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'serviceName' => 'required|string|max:255',
             'servicePrice' => 'required|numeric|min:0',
             'serviceDuration' => 'required|integer|min:1',
-            'serviceDescription' => 'required|string|max:1000',
+            'serviceDescription' => 'required|string',
             'serviceCategory' => 'required|exists:categories,id',
+            'isBooking' => 'required|boolean|in:0,1',
             'serviceImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
@@ -57,12 +59,15 @@ class ServiceController extends Controller
             $imagePath = 'services/' . $imageName;
         }
 
+        $validated['isBooking'] = (int) $validated['isBooking'];
+
         $service = Service::create([
             'name' => $validated['serviceName'],
             'price' => $validated['servicePrice'],
             'duration' => $validated['serviceDuration'],
             'description' => $validated['serviceDescription'],
             'category_id' => $validated['serviceCategory'],
+            'is_booking' => $validated['isBooking'],
         ]);
 
         if ($imagePath) {

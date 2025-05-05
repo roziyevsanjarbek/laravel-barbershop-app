@@ -74,7 +74,8 @@
 
                                 <!-- Active switch -->
                                 <div class="form-check form-switch mb-3">
-                                    <input class="form-check-input" type="checkbox" id="serviceActive" name="isBooking" checked>
+                                    <input type="hidden" name="isBooking" value="0">
+                                    <input class="form-check-input" type="checkbox" id="serviceActive" name="isBooking" value="1" checked>
                                     <label class="form-check-label" for="serviceActive">Service is active and available for booking</label>
                                 </div>
                             </div>

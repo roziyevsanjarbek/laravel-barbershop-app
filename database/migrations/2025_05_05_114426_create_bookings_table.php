@@ -19,8 +19,9 @@ return new class extends Migration
             $table->time('time');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->timestamps();
         });
     }
