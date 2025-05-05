@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +27,11 @@ Route::middleware(['auth','role:user'])->group(function (){
         Route::post('/profile/update', [UserProfileController::class, 'updateProfile'])->name('user.update-profile');
         Route::post('/profile/{user_id}/upload-image', [UserProfileController::class, 'uploadImage'])->name('user.upload-image');
         Route::delete('/profile/{user_id}/remove-image', [UserProfileController::class, 'removeImage'])->name('user.remove-image');
+
+        Route::get('/bookings', [BookingController::class, 'index'])->name('user.bookings');
+        Route::post('/bookings', [BookingController::class, 'store'])->name('user.add-booking');
+        Route::post('/bookings/update/{bookingId}', [BookingController::class, 'update'])->name('user.update-booking');
+        Route::post('/bookings/delete/{bookingId}', [BookingController::class, 'destroy'])->name('user.delete-booking');
     });
 });
 
