@@ -103,7 +103,11 @@ class BarberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barber = Barber::with('images')->findOrFail($id);
+
+        return view('Barber.edit-barbers', [
+            'barber' => $barber,
+        ]);
     }
 
     /**
@@ -140,7 +144,7 @@ class BarberController extends Controller
     public function destroy(string $id)
     {
         $barber = Barber::findOrFail($id);
-        
+
         if ($barber->images) {
             $imagePath = public_path($barber->images->path);
             if (file_exists($imagePath)) {

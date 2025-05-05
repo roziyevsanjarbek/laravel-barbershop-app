@@ -66,8 +66,12 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <img src=" {{ asset($barber->images->path) }}" alt="Barber" class="client-avatar me-3">
-                                                        <div>
+                                                        @if($barber->images)
+                                                            <img src=" {{ asset($barber->images->path) }}" alt="Barber" class="client-avatar me-3">
+                                                        @else
+                                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Barber" class="client-avatar me-3">
+                                                        @endif
+                                                            <div>
                                                             <h6 class="mb-0">{{ $barber->first_name}} {{ $barber->last_name }}</h6>
                                                             <small class="text-muted">{{ $barber->barber_type }} barber</small>
                                                         </div>
@@ -203,7 +207,9 @@
         <div class="modal fade" id="editBarberModal" tabindex="-1" aria-labelledby="editBarberModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form id="editBarberForm" action="{{ route('admin.update-barber', $barber->id) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <form id="editBarberForm"
+                          action="{{ isset($barber) ? route('admin.update-barber', $barber->id) : '' }}"
+                          method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
                         <input type="hidden" id="editBarberId" name="id">
 
@@ -215,41 +221,47 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="editFirstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="editFirstName" name="firstName" value="{{ $barber->first_name }}" required>
+                                    <input type="text" class="form-control" id="editFirstName" name="firstName"
+                                           value="{{ isset($barber) ? $barber->first_name : '' }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="editLastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="editLastName" name="lastName" value="{{ $barber->last_name }}" required>
+                                    <input type="text" class="form-control" id="editLastName" name="lastName"
+                                           value="{{ isset($barber) ? $barber->last_name : ''}}" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="editEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="editEmail" name="email" value="{{ $barber->email }}" required>
+                                    <input type="email" class="form-control" id="editEmail" name="email"
+                                           value="{{ isset($barber) ? $barber->email : '' }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="editPhone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" id="editPhone" name="phone" value="{{ $barber->phone }}" required>
+                                    <input type="tel" class="form-control" id="editPhone" name="phone"
+                                           value="{{ isset($barber) ? $barber->phone : '' }}" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     <label for="editAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="editAddress" name="address" value="{{ $barber->address }}">
+                                    <input type="text" class="form-control" id="editAddress" name="address"
+                                           value="{{ isset($barber) ? $barber->address : '' }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="editBirthday" class="form-label">Birthday</label>
-                                    <input type="date" class="form-control" id="editBirthday" name="birthday" value="{{ $barber->birthday }}">
+                                    <input type="date" class="form-control" id="editBirthday" name="birthday"
+                                           value="{{ isset($barber) ? $barber->birthday : '' }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="editBarberType" class="form-label">Barber Type</label>
                                     <select class="form-select" id="editBarberType" name="barberType" required>
-                                        <option value="new" {{ $barber->barber_type === 'new' ? 'selected' : '' }}>New Barber</option>
-                                        <option value="regular" {{ $barber->barber_type === 'regular' ? 'selected' : '' }}>Regular Barber</option>
-                                        <option value="frequent" {{ $barber->barber_type === 'frequent' ? 'selected' : '' }}>Frequent Barber</option>
-                                        <option value="vip" {{ $barber->barber_type === 'vip' ? 'selected' : '' }}>VIP Barber</option>
+                                        <option value="new" {{ isset($barber) ? $barber->barber_type === 'new' ? 'selected' : '' : '' }}>New Barber</option>
+                                        <option value="regular" {{ isset($barber) ? $barber->barber_type === 'regular' ? 'selected' : '' : '' }}>Regular Barber</option>
+                                        <option value="frequent" {{ isset($barber) ? $barber->barber_type === 'frequent' ? 'selected' : '' : '' }}>Frequent Barber</option>
+                                        <option value="vip" {{ isset($barber) ? $barber->barber_type === 'vip' ? 'selected' : '' : '' }}>VIP Barber</option>
                                     </select>
                                 </div>
                             </div>
@@ -294,34 +306,34 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-4 text-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Barber" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                                <h4 id="barberFullName">John Smith</h4>
-                                <span class="badge bg-success" id="barberTypeLabel">Regular Customer</span>
+                                @if(isset($barber))
+                                <img src="{{ asset($barber->images->path) }}" alt="Barber" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                @else
+                                <img src="{{ asset('img/placeholder-service.jpg') }}" alt="Barber Preview" class="img-fluid rounded mb-3" id="barberImagePreview" style="max-height: 200px; width: auto;">
+                                @endif
+                                <h4 id="barberFullName">{{ isset($barber) ? $barber->first_name : '' }} {{ isset($barber) ? $barber->last_name : '' }}</h4>
+                                <span class="badge bg-success" id="barberTypeLabel">{{ isset($barber) ? $barber->barber_type : '' }} barber</span>
                             </div>
                             <div class="col-md-8">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <h6>Contact Information</h6>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><i class="fas fa-envelope me-2"></i> <span id="barberEmail">john.smith@example.com</span></li>
-                                            <li class="list-group-item"><i class="fas fa-phone me-2"></i> <span id="barberPhone">(555) 123-4567</span></li>
-                                            <li class="list-group-item"><i class="fas fa-map-marker-alt me-2"></i> <span id="barberAddress">123 Main St, Anytown, USA</span></li>
+                                            <li class="list-group-item"><i class="fas fa-envelope me-2"></i> <span id="barberEmail">{{ isset($barber) ? $barber->email : '' }}</span></li>
+                                            <li class="list-group-item"><i class="fas fa-phone me-2"></i> <span id="barberPhone">{{ isset($barber) ? $barber->phone : '' }}</span></li>
+                                            <li class="list-group-item"><i class="fas fa-map-marker-alt me-2"></i> <span id="barberAddress">{{ isset($barber) ? $barber->address : '' }}</span></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
                                         <h6>Customer Info</h6>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><i class="fas fa-calendar-alt me-2"></i> Birthday: <span id="barberBirthday">Jan 15, 1985</span></li>
-                                            <li class="list-group-item"><i class="fas fa-clipboard-list me-2"></i> Total Visits: <span id="barberVisits">24</span></li>
-                                            <li class="list-group-item"><i class="fas fa-clock me-2"></i> Last Visit: <span id="barberLastVisit">May 15, 2023</span></li>
+                                            <li class="list-group-item"><i class="fas fa-calendar-alt me-2"></i> Birthday: <span id="barberBirthday">{{ isset($barber) ? $barber->birthday : '' }}</span></li>
+                                            <li class="list-group-item"><i class="fas fa-clipboard-list me-2"></i> Total Barber: <span id="barberVisits">24</span></li>
+                                            <li class="list-group-item"><i class="fas fa-clock me-2"></i> Last Barber: <span id="barberLastVisit">May 15, 2023</span></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h6>Notes</h6>
-                                        <p id="barberNotes" class="border rounded p-3">Prefers short haircuts. Has sensitive scalp. Always arrives on time.</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +349,7 @@
         <!-- Delete Barber Modal -->
         <div class="modal fade" id="deleteBarberModal" tabindex="-1" aria-labelledby="deleteBarberModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form  method="POST" action="{{ route('admin.delete-barber', $barber->id) }}" class="modal-content">
+                <form  method="POST"   action="{{ isset($barber) ? route('admin.delete-barber', $barber->id) : '' }}" class="modal-content">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteBarberModalLabel">Confirm Deletion</h5>
