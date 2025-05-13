@@ -26,7 +26,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Today's Appointments</p>
-                            <p class="text-2xl font-semibold text-gray-800">8</p>
+                            <p class="text-2xl font-semibold text-gray-800">{{ $bookingItems }}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             <!-- Daily Schedule Section -->
             <div class="bg-white rounded-lg shadow mb-6">
                 <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-                    <h3 class="text-lg font-medium text-gray-900">Today's Schedule - June 14, 2023</h3>
+                    <h3 class="text-lg font-medium text-gray-900">Today Schedule {{ NOW() }}</h3>
                 </div>
                 <div class="p-4">
                     <div class="overflow-hidden overflow-x-auto">
@@ -77,6 +77,7 @@
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Barber</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -84,75 +85,53 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">9:00 AM</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-8 w-8 rounded-full overflow-hidden bg-gray-100">
-                                            <img src="img/clients/client1.jpg" alt="Client" class="h-full w-full object-cover">
+                            @foreach($bookings as $booking)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $booking->date }} {{ $booking->time }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+                                                <img src="{{ asset('storage/' . $booking->user->image->path) }}" alt="Client" class="h-full w-full object-cover">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">{{ $booking->user->name }}</div>
+                                                <div class="text-sm text-gray-500">{{ $booking->user->phone }}</div>
+                                            </div>
                                         </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Alice Johnson</div>
-                                            <div class="text-sm text-gray-500">(555) 123-4567</div>
+                                    </td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {{ $booking->barber->last_name }} {{ $booking->barber->first_name }}</div>
+                                                <div class="text-sm text-gray-500">{{ $booking->barber->phone }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Haircut & Style</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45 min</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Confirmed</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10:00 AM</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-8 w-8 rounded-full overflow-hidden bg-gray-100">
-                                            <img src="img/clients/client2.jpg" alt="Client" class="h-full w-full object-cover">
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Bob Smith</div>
-                                            <div class="text-sm text-gray-500">(555) 987-6543</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Beard Trim</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30 min</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">In Progress</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">11:30 AM</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-8 w-8 rounded-full overflow-hidden bg-gray-100">
-                                            <img src="img/clients/client3.jpg" alt="Client" class="h-full w-full object-cover">
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Carol Davis</div>
-                                            <div class="text-sm text-gray-500">(555) 345-6789</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Color & Highlights</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">120 min</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900">Cancel</button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $booking->service->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $booking->service->duration }} min</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($booking->status == 'pending')
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">{{ $booking->status }}</span>
+                                        @elseif($booking->status == 'in Progress')
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">{{ $booking->status }}</span>
+                                        @else
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> {{ $booking->status }} </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <a href="{{ route('admin.update-schedule', $booking ->id) }}" class="text-gray-600 hover:text-blue-600 p-2 rounded-full hover:bg-blue-50">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('admin.delete-schedule', $booking->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="text-gray-600 hover:text-red-600 p-2 rounded-full hover:bg-red-50">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -6,7 +6,11 @@
 
     <!-- Main Content -->
     <div class="flex-1">
+        @if($image)
         <x-admin.navbar :image="$image"></x-admin.navbar>
+        @else
+            <x-admin.navbar :image="null"></x-admin.navbar>
+        @endif
     <div class="flex-1 p-4 md:p-10">
         <button class="md:hidden text-gray-700 p-2 bg-white rounded-md shadow my-4" id="menu-toggle">
             <i class="fas fa-bars"></i>

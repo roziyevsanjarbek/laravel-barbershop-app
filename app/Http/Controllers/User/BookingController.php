@@ -8,6 +8,7 @@ use App\Models\Barber;
 use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
@@ -40,7 +41,9 @@ class BookingController extends Controller
      */
     public function store(BookingRequest $request)
     {
+        $userId = Auth::check() ? Auth::id() : null;
         $booking = Booking::create([
+            'user_id' => $userId,
             'service_id' => $request->service_id,
             'barber_id' => $request->barber_id,
             'date' => $request->date,

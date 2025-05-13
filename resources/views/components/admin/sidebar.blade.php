@@ -16,6 +16,10 @@
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.barbers') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-users mr-2"></i>Barbers
         </a>
+        <a href="{{ route('admin.schedule') }}"
+           class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.schedule') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
+            <i class="fas fa-calendar-alt mr-2"></i> Schedule
+        </a>
         <a href="{{ route('admin.services') }}"
            class="block py-2.5 px-4 rounded transition duration-200 {{ Route::is('admin.services') ? 'bg-gray-700 text-white' : 'hover:bg-gray-700' }} ">
             <i class="fas fa-cut mr-3"></i>Service

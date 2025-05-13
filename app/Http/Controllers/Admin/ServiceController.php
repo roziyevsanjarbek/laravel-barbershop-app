@@ -16,7 +16,7 @@ class ServiceController extends Controller
     {
         $user = User::findOrFail(auth()->user()->id);
         $image = $user->image;
-        $services = Service::with('images')->get();
+        $services = Service::with('images')->where('is_booking', 1)->get();
         $categories = Category::query()
             ->whereHas('services')
             ->with(['services.images'])

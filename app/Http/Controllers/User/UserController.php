@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Service;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,7 +18,15 @@ class UserController extends Controller
     }
     public function appointments()
     {
-        return view('User.appointments');
+        $appointments = Booking::query()
+            ->where('status', 'completed')
+            ->where('user_id', Auth::id())
+            ->with(['service', 'user.image', 'barber'])
+            ->get();
+
+        return view('User.appointments', [
+            'appointments' => $appointments,
+        ]);
     }
     public function bookings()
     {

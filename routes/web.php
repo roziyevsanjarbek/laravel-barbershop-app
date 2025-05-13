@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BarberController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
@@ -61,6 +62,12 @@ Route::middleware(['auth','role:admin'])->group(function (){
         Route::get('/barbers/update', [BarberController::class, 'edit'])->name('admin.edit-barber');
         Route::post('/barbers/update/{barberId}', [BarberController::class, 'update'])->name('admin.update-barber');
         Route::post('/barbers/delete/{barberId}', [BarberController::class, 'destroy'])->name('admin.delete-barber');
+
+
+        Route::get('/schedule', [AppointmentController::class, 'index'])->name('admin.schedule');
+        Route::get('/update-schedule/{bookingId}', [AppointmentController::class, 'edit'])->name('admin.edit-schedule');
+        Route::post('/update-schedule/{bookingId}', [AppointmentController::class, 'update'])->name('admin.update-schedule');
+        Route::post('/delete-schedule/{bookingId}', [AppointmentController::class, 'destroy'])->name('admin.delete-schedule');
     });
 });
 

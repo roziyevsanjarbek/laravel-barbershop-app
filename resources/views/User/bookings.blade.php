@@ -195,7 +195,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const user_id = '{{ Auth::user()->id }}'
         let bookingData = {
+            user_id: user_id,
             service_id: null,
             service_name: null,
             service_price: null,

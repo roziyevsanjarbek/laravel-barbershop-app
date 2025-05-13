@@ -30,18 +30,15 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($appointments as $appointment)
                         <tr class="border-t">
-                            <td class="py-2 px-4">Oct 15, 2023</td>
-                            <td class="py-2 px-4">Haircut</td>
-                            <td class="py-2 px-4">Mike Johnson</td>
-                            <td class="py-2 px-4"><span class="text-green-600">Completed</span></td>
+                            <td class="py-2 px-4">{{ $appointment->date }}</td>
+                            <td class="py-2 px-4">{{ $appointment->service->name }}</td>
+                            <td class="py-2 px-4">
+                                {{ $appointment->barber->last_name }} {{ $appointment->barber->first_name }}</td>
+                            <td class="py-2 px-4"><span class="text-green-600">{{ $appointment->status }}</span></td>
                         </tr>
-                        <tr class="border-t">
-                            <td class="py-2 px-4">Sep 30, 2023</td>
-                            <td class="py-2 px-4">Beard Trim</td>
-                            <td class="py-2 px-4">David Smith</td>
-                            <td class="py-2 px-4"><span class="text-green-600">Completed</span></td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
