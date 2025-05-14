@@ -21,11 +21,17 @@ class AdminController extends Controller
             ->with(['service', 'user.image', 'barber'])
             ->whereDate('date', now()->toDateString())
             ->count();
+        $revenue = 0;
+        foreach ($bookings as $booking) {
+            $revenue += $booking->service->price;
+        }
+
         return view('Barber.dashboard', [
             'user' => $user,
             'image' => $image,
             'bookings' => $bookings,
             'bookingItems' => $bookingItems,
+            'revenue' => $revenue,
         ]);
     }
 

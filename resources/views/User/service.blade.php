@@ -64,7 +64,7 @@
                                 <p class="text-gray-600 mb-4">{{ $service->description }}</p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-2xl font-bold text-gray-800">{{ $service->price }}$</span>
-                                    <button class="bg-gray-900 text-white px-6 py-2 rounded hover:bg-gray-700 transition-colors">Book Now</button>
+                                    <a href="{{ route('user.bookings') }}" class="bg-gray-900 text-white px-6 py-2 rounded hover:bg-gray-700 transition-colors">Book Now</a>
                                 </div>
                             </div>
                         </div>

@@ -37,7 +37,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Today's Revenue</p>
-                            <p class="text-2xl font-semibold text-gray-800">$345</p>
+                            <p class="text-2xl font-semibold text-gray-800">${{ $revenue }}</p>
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,7 @@
                         <p class="text-gray-700"><span class="font-medium">Service:</span> Haircut & Beard Trim</p>
                         <p class="text-gray-700"><span class="font-medium">Barber:</span> Alex Johnson</p>
                     </div>
-                    <a href="appointments.html" class="mt-4 inline-block text-sm text-yellow-500 hover:text-yellow-600">View all appointments →</a>
+                    <a href="{{ route('user.appointments')}}" class="mt-4 inline-block text-sm text-yellow-500 hover:text-yellow-600">View all appointments →</a>
                 </div>
 
                 <!-- Recent Activity Card -->
@@ -106,15 +106,15 @@
             <div class="bg-white rounded-lg shadow-md p-6 mb-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <a href="appointments.html" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
+                    <a href="{{ route('user.bookings')}}" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
                         <i class="fas fa-calendar-plus text-2xl text-yellow-500 mb-2"></i>
                         <span class="text-gray-700 text-sm text-center">Book Appointment</span>
                     </a>
-                    <a href="profile.html" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
+                    <a href="{{ route('user.profile')}}" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
                         <i class="fas fa-user-edit text-2xl text-yellow-500 mb-2"></i>
                         <span class="text-gray-700 text-sm text-center">Update Profile</span>
                     </a>
-                    <a href="appointments.html" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
+                    <a href="{{ route('user.appointments')}}" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
                         <i class="fas fa-history text-2xl text-yellow-500 mb-2"></i>
                         <span class="text-gray-700 text-sm text-center">View History</span>
                     </a>
